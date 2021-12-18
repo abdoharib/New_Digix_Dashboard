@@ -1,0 +1,36 @@
+{
+    "data": [
+        {
+            "title": "الاحصائيات",
+            "icon": "bar-chart-2",
+            "type": "link",
+            "active": false,
+            "path": "/dashboard/overview"
+        },
+        {
+            "title": "أدارة الوظائف",
+            "icon": "briefcase",
+            "type": "sub",
+            "active": false,
+            "children": [
+                {
+                    "path": "/dashboard/jobs",
+                    "title": "الوظائف",
+                    "type": "link"
+                },
+                {
+                    "path": "/dashboard/jobs-applications",
+                    "title": "الطلبات",
+                    "type": "link"
+                }
+            ]
+        },
+        {
+            "title": "ألاعمال",
+            "icon": "grid",
+            "type": "link",
+            "active": false,
+            "path":"projects"
+        }
+    ]
+}
