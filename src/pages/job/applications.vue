@@ -81,12 +81,12 @@
       </div>
     </div>
     <!-- Container-fluid Ends-->
-    <b-modal   id="modal-status"  centered title="تغير الحالة" ok-title="تعديل" cancel-title="الغاء" class="theme-modal">
+    <b-modal   id="modal-status" v-on:ok="UpdateStatus" centered title="تغير الحالة" ok-title="تعديل" cancel-title="الغاء" class="theme-modal">
         <div v-if="Selected_Applicaton.status" class="d-flex w-100 justify-content-center align-items-center">
                  <b-button disabled  :variant="colorMaper[Selected_Applicaton.status.id.toString()]" >{{Selected_Applicaton.status.name}}</b-button> 
                  <span  style="margin:10px;" >الي</span> 
                  <b-form-select v-model="selected" :variant="colorMaper[Selected_Applicaton.status.id.toString()]" >
-                     <b-form-select-option :value="{id:index,name:statuse}" v-for="(statuse, index) in StatusOrder.filter((v,indx) => indx > Selected_Applicaton.status.id )" :key="index"> {{statuse}} </b-form-select-option>
+                     <b-form-select-option  :value="statuse" v-for="(statuse, index) in StatusOrder.filter( (v,indx) => (indx > Selected_Applicaton.status.id) )" :key="index"> {{statuse.name}} </b-form-select-option>
                 </b-form-select> 
         </div>
     </b-modal>
@@ -123,7 +123,8 @@
         perPage: 10,
         pageOptions: [5, 10, 15],
         selected:"",
-        StatusOrder:["معلق","قيد المراجعة","تم الموافقة","تم الرفض"]
+        StatusOrder:[{id:0, name:"معلق"}, {id:1, name:"قيد المراجعة"}, {id:2, name:"تم الموافقة"}, {id:3, name:"تم الرفض"}]
+
       };
     },
     computed: {
@@ -165,7 +166,7 @@
 
         items: this.AllApplicatons,
 
-        filter: "ولاء",
+        filter: "",
         totalRows: 1,
         currentPage: 1,
         perPage: 10,
@@ -179,7 +180,7 @@
     },
     methods: {
         ...mapMutations("jobs",[
-            "UpdateApplication"
+            "Update_Application"
         ]),
 
         ...mapActions("jobs",[
@@ -194,10 +195,26 @@
         return require('@/assets/images/'+path);
       },
        SetStatusPopup(app){
-           this.UpdateApplication(app)
+        this.Update_Application(app)
         this.$bvModal.show("modal-status")	
       },
+      async UpdateStatus(){
+        let temp = JSON.parse(JSON.stringify( this.Selected_Applicaton))
+        console.log(this.selected);
+        temp.status = this.selected
+        temp.statusid = this.selected.id;
+        console.log(temp);
+       // this.Update_Application(temp)
+        await this.UpdateApplication(temp)
+
+      }
       
+    },
+    async created(){
+      await this.GetApplications();
+    },
+    updated(){
+      console.log(this.selected);
     }
   };
 </script>

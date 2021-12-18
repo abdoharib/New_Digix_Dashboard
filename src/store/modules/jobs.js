@@ -111,7 +111,7 @@ const state = {
   jobs: [],
   selected_job: {},
 
-  applications: mockDataApplications,
+  applications: [],
   selected_application: {},
 };
 
@@ -160,7 +160,7 @@ const mutations = {
     
   },
 
-  UpdateApplication: (state, payload) => {
+  Update_Application: (state, payload) => {
     state.selected_application = payload;
         console.log("selected_application UpdateApplication");
   },
@@ -244,7 +244,8 @@ const actions = {
         commit("UpdateApplications", res.data.body);
       }
   },
-  async UpdateApplication({state, commit}, payload=null){
+  async UpdateApplication({state, commit, dispatch}, payload=null){
+    console.log(state.selected_application);
     let res = await axios.post("/api/jobs/submission",payload?payload: state.selected_application).catch((e) => {
         console.log(e);
       });
@@ -252,6 +253,8 @@ const actions = {
         console.log(res.data.message);
       } else {
         console.log("Application Updated");
+        dispatch("GetApplications")
+
       }
   }
 
