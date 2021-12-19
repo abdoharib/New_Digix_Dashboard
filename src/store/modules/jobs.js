@@ -14,13 +14,27 @@ let mockDataJobs = [
 ];
 
 let mockDataApplications = [
+  
   {
     jobid: "ab365847-7382-441a-a234-97315a6b78d8",
-    jobname:"مطور ويب",
+    jobname:"g",
     note: "",
     file: "https://digix-dashboard-bucket.s3.eu-central-1.amazonaws.com/job-sub/ab98f6f3-db16-4212-9bf1-d1e085edb30f.pdf",
     phone: "+218919718023",
-    name: "عبد المهيمن",
+    name: "ahmed",
+    id: "ab98f6f3-db16-4212-9bf1-d1e085edb30f",
+    time: 1639095351000,
+    email: "abdoamazon9@gmail.ocm",
+    status: { id: 0, name: "معلق" },
+    statusid:0
+  },
+  {
+    jobid: "ab365847-7382-441a-a234-97315a6b78d8",
+    jobname:"ويب",
+    note: "",
+    file: "https://digix-dashboard-bucket.s3.eu-central-1.amazonaws.com/job-sub/ab98f6f3-db16-4212-9bf1-d1e085edb30f.pdf",
+    phone: "+218919718023",
+    name: "mohamed",
     id: "ab98f6f3-db16-4212-9bf1-d1e085edb30f",
     time: 1639505030668,
     email: "abdoamazon9@gmail.ocm",
@@ -29,72 +43,7 @@ let mockDataApplications = [
   },
   {
     jobid: "ab365847-7382-441a-a234-97315a6b78d8",
-    jobname:"مطور ويب",
-    note: "",
-    file: "https://digix-dashboard-bucket.s3.eu-central-1.amazonaws.com/job-sub/ab98f6f3-db16-4212-9bf1-d1e085edb30f.pdf",
-    phone: "+218919718023",
-    name: "عبد المهيمن",
-    id: "ab98f6f3-db16-4212-9bf1-d1e085edb30f",
-    time: 1639505030668,
-    email: "abdoamazon9@gmail.ocm",
-    status: { id: 0, name: "معلق" },
-    statusid:0
-  },
-  {
-    jobid: "ab365847-7382-441a-a234-97315a6b78d8",
-    jobname:"مطور ويب",
-    note: "",
-    file: "https://digix-dashboard-bucket.s3.eu-central-1.amazonaws.com/job-sub/ab98f6f3-db16-4212-9bf1-d1e085edb30f.pdf",
-    phone: "+218919718023",
-    name: "عبد المهيمن",
-    id: "ab98f6f3-db16-4212-9bf1-d1e085edb30f",
-    time: 1639505030668,
-    email: "abdoamazon9@gmail.ocm",
-    status: { id: 0, name: "معلق" },
-    statusid:0
-  },
-  {
-    jobid: "ab365847-7382-441a-a234-97315a6b78d8",
-    jobname:"مطور ويب",
-    note: "",
-    file: "https://digix-dashboard-bucket.s3.eu-central-1.amazonaws.com/job-sub/ab98f6f3-db16-4212-9bf1-d1e085edb30f.pdf",
-    phone: "+218919718023",
-    name: "عبد المهيمن",
-    id: "ab98f6f3-db16-4212-9bf1-d1e085edb30f",
-    time: 1639505030668,
-    email: "abdoamazon9@gmail.ocm",
-    status: { id: 0, name: "معلق" },
-    statusid:0
-  },
-  {
-    jobid: "ab365847-7382-441a-a234-97315a6b78d8",
-    jobname:"مطور ويب",
-    note: "",
-    file: "https://digix-dashboard-bucket.s3.eu-central-1.amazonaws.com/job-sub/ab98f6f3-db16-4212-9bf1-d1e085edb30f.pdf",
-    phone: "+218919718023",
-    name: "عبد المهيمن",
-    id: "ab98f6f3-db16-4212-9bf1-d1e085edb30f",
-    time: 1639505030668,
-    email: "abdoamazon9@gmail.ocm",
-    status: { id: 0, name: "معلق" },
-    statusid:0
-  },
-  {
-    jobid: "ab365847-7382-441a-a234-97315a6b78d8",
-    jobname:"مطور ويب",
-    note: "",
-    file: "https://digix-dashboard-bucket.s3.eu-central-1.amazonaws.com/job-sub/ab98f6f3-db16-4212-9bf1-d1e085edb30f.pdf",
-    phone: "+218919718023",
-    name: "عبد المهيمن",
-    id: "ab98f6f3-db16-4212-9bf1-d1e085edb30f",
-    time: 1639505030668,
-    email: "abdoamazon9@gmail.ocm",
-    status: { id: 0, name: "معلق" },
-    statusid:0
-  },
-  {
-    jobid: "ab365847-7382-441a-a234-97315a6b78d8",
-    jobname:"مطور ويب",
+    jobname:"ويب",
     note: "",
     file: "https://digix-dashboard-bucket.s3.eu-central-1.amazonaws.com/job-sub/ab98f6f3-db16-4212-9bf1-d1e085edb30f.pdf",
     phone: "+218919718023",

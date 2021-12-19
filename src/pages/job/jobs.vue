@@ -113,7 +113,7 @@
 
                   </b-tab>
 
-                    <b-tab >
+                  <b-tab>
 
                     <template v-slot:title>مفعل</template>
 
@@ -124,22 +124,29 @@
                           <div class="card-body">
                             <div class="row">
 
-                              <div class="col-xl-4 col-lg-6" v-for="(job,index) in ActiveJobs" :key="index" :class="index < 3 ? 'mb-4' : ''">
+                              <div  class="col-xl-4 col-lg-6" v-for="(job,index) in ActiveJobs" :key="index" :class="index < 3 ? 'mb-4' : ''">
                                
                                 <div class="project-box">
 
                                  <!-- <span class="badge" :class="'badge-'+project.type">{{ project.badge }}</span> -->
-                                  <h6>{{ job.title }}</h6>
-
-                                  <div class="media">
+                                  <div class="d-flex justify-content-between">
+                                    <div>
+                                      <h6>{{ job.title }}</h6> 
+                                      <div style="margin:0px" class="media">
 
                                   <!--  <img class="img-20 mr-1 rounded-circle" :src='getImgUrl(project.img)' alt="" title=""> -->
-                                    
+                                  
                                     <div class="media-body">
                                       <p> أخر تحديث{{ job.time }}</p>
                                     </div>
 
                                   </div>
+                                    </div>
+
+                                      <b-button style="padding:5px; height:fit-content" @click="OpenUpdatePopup(job)" variant="primary">{{job.status?'اخفاء':'تفعيل'}}</b-button>
+                                  </div>  
+                                 
+                                  
 
 
                                   <p>{{ job.description }}</p>
@@ -193,6 +200,9 @@
                                 
                                   </div>
 
+                                  <b-button class="w-100 mt-2" style="padding:5px; height:fit-content; width:100%;" @click="SelectJob(job)" variant="light">تفاصيل</b-button>
+
+
                                 </div>
                               </div>
                               
@@ -204,7 +214,7 @@
 
                   </b-tab>
 
-                    <b-tab >
+                  <b-tab>
 
                     <template v-slot:title>غير مفعل</template>
 
@@ -215,22 +225,29 @@
                           <div class="card-body">
                             <div class="row">
 
-                              <div class="col-xl-4 col-lg-6" v-for="(job,index) in inActiveJobs" :key="index" :class="index < 3 ? 'mb-4' : ''">
+                              <div  class="col-xl-4 col-lg-6" v-for="(job,index) in inActiveJobs" :key="index" :class="index < 3 ? 'mb-4' : ''">
                                
                                 <div class="project-box">
 
                                  <!-- <span class="badge" :class="'badge-'+project.type">{{ project.badge }}</span> -->
-                                  <h6>{{ job.title }}</h6>
-
-                                  <div class="media">
+                                  <div class="d-flex justify-content-between">
+                                    <div>
+                                      <h6>{{ job.title }}</h6> 
+                                      <div style="margin:0px" class="media">
 
                                   <!--  <img class="img-20 mr-1 rounded-circle" :src='getImgUrl(project.img)' alt="" title=""> -->
-                                    
+                                  
                                     <div class="media-body">
                                       <p> أخر تحديث{{ job.time }}</p>
                                     </div>
 
                                   </div>
+                                    </div>
+
+                                      <b-button style="padding:5px; height:fit-content" @click="OpenUpdatePopup(job)" variant="primary">{{job.status?'اخفاء':'تفعيل'}}</b-button>
+                                  </div>  
+                                 
+                                  
 
 
                                   <p>{{ job.description }}</p>
@@ -284,6 +301,9 @@
                                 
                                   </div>
 
+                                  <b-button class="w-100 mt-2" style="padding:5px; height:fit-content; width:100%;" @click="SelectJob(job)" variant="light">تفاصيل</b-button>
+
+
                                 </div>
                               </div>
                               
@@ -294,6 +314,7 @@
                     </b-card-text>
 
                   </b-tab>
+
 
                 </b-tabs>
 
