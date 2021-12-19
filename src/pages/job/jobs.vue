@@ -36,7 +36,7 @@
                                   <!--  <img class="img-20 mr-1 rounded-circle" :src='getImgUrl(project.img)' alt="" title=""> -->
                                   
                                     <div class="media-body">
-                                      <p> أخر تحديث{{ job.time }}</p>
+                                      <p> أخر تحديث <span class="mr-1">{{ new Date(job.time).toDateString()}}</span></p>
                                     </div>
 
                                   </div>
@@ -55,7 +55,7 @@
                                     <div class="col-6">
                                       <span>طلبات التوظيف</span>
                                     </div>
-                                    <div class="col-6 text-primary" :class="'text-'+job.type">25</div>
+                                    <div class="col-6 text-primary" :class="'text-'+job.type">{{AppOrderdbyjobname[job.title] ? AppOrderdbyjobname[job.title].length : 0}}</div>
             
                                   </div>
 
@@ -75,24 +75,24 @@
                                   </div>
                                   -->
 
-                                  <div class="project-status mt-4">
+                                  <div v-if="(job['MaxNoApplications'] && ( job.MaxNoApplications !=='' || job.MaxNoApplications !== '0')) " class="project-status mt-4">
 
                                     <div class="media mb-0">
-                                      <p>20%</p>
+                                      <p>{{ Number.parseInt( ((AppOrderdbyjobname[job.title]?AppOrderdbyjobname[job.title].length:0)/(job.MaxNoApplications)) * 100) }}%</p>
                                       <div class="media-body text-right">
-                                        <span>من مجموع الطلبات</span>
+                                        <span>من العدد الاقصي</span>
                                       </div>
                                     </div>
 
-                                    <div class="progress" style="height: 5px">
+                                    <div  class="progress" style="height: 5px">
                                       <div
                                         class="progress-bar-animated progress-bar-striped"
                                         :class="'bg-primary'"
                                         role="progressbar"
-                                        :style= "{'width': 20+'%'}"
+                                        :style= "{width: Number.parseInt( ((AppOrderdbyjobname[job.title]?AppOrderdbyjobname[job.title].length:0)/(job.MaxNoApplications)) * 100) +'%'}"
                                         aria-valuenow="10"
                                         aria-valuemin="0"
-                                        aria-valuemax="100"
+                                        aria-valuemax="200"
                                       ></div>
                                     </div>
 
@@ -113,7 +113,7 @@
 
                   </b-tab>
 
-                  <b-tab>
+                    <b-tab >
 
                     <template v-slot:title>مفعل</template>
 
@@ -137,7 +137,7 @@
                                   <!--  <img class="img-20 mr-1 rounded-circle" :src='getImgUrl(project.img)' alt="" title=""> -->
                                   
                                     <div class="media-body">
-                                      <p> أخر تحديث{{ job.time }}</p>
+                                      <p> أخر تحديث <span class="mr-1">{{ new Date(job.time).toDateString()}}</span></p>
                                     </div>
 
                                   </div>
@@ -156,7 +156,7 @@
                                     <div class="col-6">
                                       <span>طلبات التوظيف</span>
                                     </div>
-                                    <div class="col-6 text-primary" :class="'text-'+job.type">25</div>
+                                    <div class="col-6 text-primary" :class="'text-'+job.type">{{AppOrderdbyjobname[job.title] ? AppOrderdbyjobname[job.title].length : 0}}</div>
             
                                   </div>
 
@@ -176,24 +176,25 @@
                                   </div>
                                   -->
 
-                                  <div class="project-status mt-4">
+
+                                  <div v-if="(job['MaxNoApplications'] && ( job.MaxNoApplications !=='' || job.MaxNoApplications !== '0')) " class="project-status mt-4">
 
                                     <div class="media mb-0">
-                                      <p>20%</p>
+                                      <p>{{ Number.parseInt( ((AppOrderdbyjobname[job.title]?AppOrderdbyjobname[job.title].length:0)/(job.MaxNoApplications)) * 100) }}%</p>
                                       <div class="media-body text-right">
-                                        <span>من مجموع الطلبات</span>
+                                        <span>من العدد الاقصي</span>
                                       </div>
                                     </div>
 
-                                    <div class="progress" style="height: 5px">
+                                    <div  class="progress" style="height: 5px">
                                       <div
                                         class="progress-bar-animated progress-bar-striped"
                                         :class="'bg-primary'"
                                         role="progressbar"
-                                        :style= "{'width': 20+'%'}"
+                                        :style= "{width: Number.parseInt( ((AppOrderdbyjobname[job.title]?AppOrderdbyjobname[job.title].length:0)/(job.MaxNoApplications)) * 100) +'%'}"
                                         aria-valuenow="10"
                                         aria-valuemin="0"
-                                        aria-valuemax="100"
+                                        aria-valuemax="200"
                                       ></div>
                                     </div>
 
@@ -214,7 +215,7 @@
 
                   </b-tab>
 
-                  <b-tab>
+                   <b-tab >
 
                     <template v-slot:title>غير مفعل</template>
 
@@ -238,7 +239,7 @@
                                   <!--  <img class="img-20 mr-1 rounded-circle" :src='getImgUrl(project.img)' alt="" title=""> -->
                                   
                                     <div class="media-body">
-                                      <p> أخر تحديث{{ job.time }}</p>
+                                      <p> أخر تحديث <span class="mr-1">{{ new Date(job.time).toDateString()}}</span></p>
                                     </div>
 
                                   </div>
@@ -257,7 +258,7 @@
                                     <div class="col-6">
                                       <span>طلبات التوظيف</span>
                                     </div>
-                                    <div class="col-6 text-primary" :class="'text-'+job.type">25</div>
+                                    <div class="col-6 text-primary" :class="'text-'+job.type">{{AppOrderdbyjobname[job.title] ? AppOrderdbyjobname[job.title].length : 0}}</div>
             
                                   </div>
 
@@ -277,24 +278,25 @@
                                   </div>
                                   -->
 
-                                  <div class="project-status mt-4">
+
+                                  <div v-if="(job['MaxNoApplications'] && ( job.MaxNoApplications !=='' || job.MaxNoApplications !== '0')) " class="project-status mt-4">
 
                                     <div class="media mb-0">
-                                      <p>20%</p>
+                                      <p>{{ Number.parseInt( ((AppOrderdbyjobname[job.title]?AppOrderdbyjobname[job.title].length:0)/(job.MaxNoApplications)) * 100) }}%</p>
                                       <div class="media-body text-right">
-                                        <span>من مجموع الطلبات</span>
+                                        <span>من العدد الاقصي</span>
                                       </div>
                                     </div>
 
-                                    <div class="progress" style="height: 5px">
+                                    <div  class="progress" style="height: 5px">
                                       <div
                                         class="progress-bar-animated progress-bar-striped"
                                         :class="'bg-primary'"
                                         role="progressbar"
-                                        :style= "{'width': 20+'%'}"
+                                        :style= "{width: Number.parseInt( ((AppOrderdbyjobname[job.title]?AppOrderdbyjobname[job.title].length:0)/(job.MaxNoApplications)) * 100) +'%'}"
                                         aria-valuenow="10"
                                         aria-valuemin="0"
-                                        aria-valuemax="100"
+                                        aria-valuemax="200"
                                       ></div>
                                     </div>
 
@@ -363,14 +365,25 @@
         "AllJobs",
         "ActiveJobs",
         "inActiveJobs",
-        "Selected_job"
+        "Selected_job",
+        "AllApplicatons"
       ]),
+       AppOrderdbyjobname(){
+            let AppOrderdbyjobname = {}
+            this.AllApplicatons.map(app => {
+          AppOrderdbyjobname[app.jobname] ? null :AppOrderdbyjobname[app.jobname] = []
+          AppOrderdbyjobname[app.jobname].push(app)
+        })
+        console.log(AppOrderdbyjobname);
+        return AppOrderdbyjobname
+        }
     },
     methods:{
       ...mapMutations("jobs",[
         "UpdateSelected_job"
       ]),
       ...mapActions("jobs",[
+        "GetApplications",
         "UpdateJob",
         "GetJobs"
       ]),
@@ -390,11 +403,13 @@
         console.log(job);
         this.UpdateSelected_job(job)
         console.log(this.Selected_job);
-        this.$router.push("job-edit")
+        this.$router.push(`job-edit/${job.id}` )
       }
     },
      async created(){
       await this.GetJobs()
+      await this.GetApplications();
+
     },
 
   };

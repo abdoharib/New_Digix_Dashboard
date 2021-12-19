@@ -151,3 +151,34 @@
 @import "layout/sidebar.scss";
 @import "layout/rtl";
 @import "layout/box-layout.scss";
+
+    
+
+#job-app-pie-chart{
+    .apexcharts-legend{
+       
+    }
+    .apexcharts-legend-series{
+    }
+    .apexcharts-legend-text{
+        margin-right: 10px;
+        font-size: 12px !important;
+    }
+}
+
+#bar-chart{
+    height:280px !important;
+}
+
+.app-job {
+    .card{
+        height: 93% !important;
+    }
+}
+
+.latest-app-job{
+    .card{
+        height: 400px !important;
+        overflow-y: auto;
+    }
+}

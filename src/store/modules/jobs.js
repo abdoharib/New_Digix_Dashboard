@@ -140,23 +140,36 @@ const actions = {
       console.log("Updated Selected_job");
       console.log(res.data);
       dispatch("GetJobs")
+       
     }
   },
 
-  async GetJobs({ state, commit }) {
-    let res = await axios.get("api/jobs").catch((e) => {
+  async GetJobs({ state, commit },id = null) {
+    console.log(id);
+    let res = await axios.get("api/jobs",{
+      params:{
+        id:id?id:''
+      }
+    }).catch((e) => {
       console.log(e);
     });
     if (res.data.statusCode !== 200) {
       console.log(res.data.message);
     } else {
       console.log("Jobs Arrived");
+      console.log(res.data.body);
       commit("UpdateJobs", res.data.body);
+      return id && res.data.body[0] ? res.data.body[0] : null
     }
   },
 
   async AddJob({ state, commit }, payload) {
-    let res = await axios.put("api/jobs",  payload ? payload:state.selected_job).catch((e) => {
+    
+    //check if MaxNoApplications === "" if true delete it
+    let sending = payload?payload:state.selected_job
+    if(sending && sending.MaxNoApplications){payload.MaxNoApplications  == "" && delete payload.MaxNoApplications }
+
+    let res = await axios.put("api/jobs",  sending).catch((e) => {
       console.log(e);
     });
     if (res.data.statusCode !== 200) {

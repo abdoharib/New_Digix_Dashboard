@@ -7,7 +7,7 @@
               <div class="col-sm-12">
                 <px-card>
                   <div slot="with-padding">
-                    <div class="form theme-form">
+                    <div v-if="job['title']" class="form theme-form">
 
                       <div class="row">
                         <div class="col">
@@ -23,6 +23,15 @@
                           <div class="form-group">
                             <label>الوصف الوظيفي</label>
                             <input :disabled="!editable" v-model="job.description" style="font-size:15px;" class="form-control" type="text" >
+                          </div>
+                        </div>
+                      </div>
+
+                       <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label>أقصي عدد للموظفين</label>
+                            <input :disabled="!editable" v-model="job.MaxNoApplications" style="font-size:20px;" class="form-control" type="number">
                           </div>
                         </div>
                       </div>
@@ -51,7 +60,7 @@
                               <b-button class="mr-2 ml-2" v-if="editable" @click="saveEditedJob" variant="success">حفظ</b-button>
                               <b-button class="mr-2 ml-2" v-else  @click="setEditTrue" variant="primary">تعديل</b-button>
 
-                              <b-button class="mr-2 ml-2" v-if="!editable" @click="$router.push('jobs')" variant="danger">رجوع</b-button>
+                              <b-button class="mr-2 ml-2" v-if="!editable" @click="$router.push({name:'jobs'})" variant="danger">رجوع</b-button>
                               <b-button class="mr-2 ml-2" v-else  @click="setEditFalse" variant="danger">الغاء</b-button>
                             </div>
 
@@ -97,11 +106,12 @@
 
     methods:{
          ...mapMutations("jobs",[
-        "UpdateSelected_job"
+        "UpdateSelected_job",
       ]),
         ...mapActions("jobs",[
         "UpdateJob",
-        "ArchiveJob"
+        "ArchiveJob",
+        "GetJobs"
       ]),
       setEditTrue(){
         this.editable = true
@@ -127,10 +137,17 @@
         this.$router.push("jobs")
       }
     },
-    mounted(){
+    async mounted(){
       //this.UpdateSelected_job({})
-      console.log(this.Selected_job);
-      this.job = JSON.parse(JSON.stringify(this.Selected_job)) 
+      console.log(JSON.parse(JSON.stringify(this.Selected_job)));
+      if(this.Selected_job.id){
+        this.job = JSON.parse(JSON.stringify(this.Selected_job))
+      }else{
+        console.log(this.$router.currentRoute.params.id);
+        this.UpdateSelected_job(await this.GetJobs(this.$router.currentRoute.params.id))
+        this.job = JSON.parse(JSON.stringify(this.Selected_job))
+      }
+      
     },
     unmounted(){
       this.UpdateSelected_job({})

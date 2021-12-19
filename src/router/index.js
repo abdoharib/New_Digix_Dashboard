@@ -41,7 +41,7 @@ const routes = [
       }
     },
     {
-      path: 'job-edit',
+      path: 'job-edit/:id',
       name: 'job-edit',
       component: JobEdit,
       meta: {

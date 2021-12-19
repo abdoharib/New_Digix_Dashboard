@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumbs title="Support Ticket" />
+    <Breadcrumbs title="طلبات التوظيف" />
     <!-- Container-fluid starts-->
     <div class="container-fluid support-ticket-section">
       <div class="row">
@@ -183,9 +183,10 @@ export default {
     return {
       maxskill: 100,
       tablefields: [
-        { key: "name", label: "Name", sortable: false },
-        { key: "phone", label: "Phone", sortable: false },
-        { key: "email", label: "Email", sortable: false },
+        { key: "name", label: "Name", sortable: true },
+        { key: "phone", label: "Phone", sortable: true },
+        { key: "email", label: "Email", sortable: true },
+        { key: "note", label: "Note", sortable: true },
         { key: "jobname", label: "Position", sortable: true },
         { key: "time", label: "Time", sortable: true },
         { key: "statusid", label: "Status", sortable: true },

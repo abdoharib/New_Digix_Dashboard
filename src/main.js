@@ -5,6 +5,8 @@ import router from './router'
 import Breadcrumbs from './components/bread_crumbs'
 import { store } from './store';
 import VueFeather from 'vue-feather';
+import VueApexCharts from 'vue-apexcharts';
+
 
 import PxCard  from './components/Pxcard.vue'
 Vue.component(PxCard.name, PxCard)
@@ -16,6 +18,8 @@ import './assets/scss/app.scss'
 Vue.use(VueFeather);
 Vue.use(BootstrapVue)
 Vue.component('Breadcrumbs', Breadcrumbs)
+Vue.component('apexchart', VueApexCharts);
+
 
 new Vue({
   router,

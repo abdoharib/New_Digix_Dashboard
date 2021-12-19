@@ -27,6 +27,15 @@
                         </div>
                       </div>
 
+                       <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label>أقصي عدد للموظفين</label>
+                            <input v-model="job.MaxNoApplications" style="font-size:15px;" class="form-control" type="number">
+                          </div>
+                        </div>
+                      </div>
+
                       <div class="row">
                         <div class="col">
                           <div class="form-group">
@@ -115,6 +124,9 @@
       this.UpdateSelected_job({})
       console.log(this.Selected_job);
       this.job = JSON.parse(JSON.stringify(this.Selected_job)) 
+    },
+    updated(){
+      console.log(this.job);
     }
   };
 </script>

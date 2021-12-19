@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <div class="page-wrapper" :class="layoutobj">
       <div class="page-header" :class="{ close_icon:!togglesidebar }">
         <Header @clicked="sidebar_toggle" />
