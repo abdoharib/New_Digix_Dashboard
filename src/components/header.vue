@@ -119,13 +119,15 @@
           </ul>
         </li>
      
-       
+       <!--
         <li>
+          
           <div class="mode">
             <i class="fa fa-moon-o" v-show="mixLayout == 'light-only'" @click="customizeMixLayout('dark-only')"></i>
             <i class="fa fa-lightbulb-o" v-show="mixLayout == 'dark-only'" @click="customizeMixLayout('light-only')"></i>
           </div>
-        </li>
+          
+        </li>-->
 
        
         
