@@ -7,7 +7,9 @@
         <div class="col-md-12">
           <px-card :actions="false">
             <div slot="with-padding">
+
               <b-row align-v="end">
+
                 <b-col style="margin-top: 5px" xl="2">
                   <span style="">filter by String</span>
                   <b-input-group class="">
@@ -38,7 +40,6 @@
                   <span style="">filter by time</span>
                   <div class="d-flex align-items-center">
                     <datepicker
-                  
                     input-class="datepicker-here form-control digits datestyle"
                     :format="DateFormater"
                     v-model="filter.dateFilter.from"
@@ -79,6 +80,10 @@
                 >
                   <template v-slot:cell(time)="data">
                     {{ new Date(data.item.time).toDateString() }}
+                  </template>
+
+                     <template v-slot:cell(interviewDate)="data">
+                    {{ data.item.interviewDate && data.item.interviewDate !== "" ? new Date(data.item.interviewDate).toDateString(): 'غير محدد' }}
                   </template>
 
                   <template v-slot:cell(statusid)="data">
@@ -142,6 +147,29 @@
       cancel-title="الغاء"
       class="theme-modal"
     >
+    <div v-if="selected.id == 1" class="d-flex align-items-center m-1 justify-content-between">
+      <p>الرجاء تحميل و مراجعة ملف الطلب قبل تغير الحالة</p>
+      <b-button 
+      class="m-1"      
+      @click="DownloadPdf"
+      variant="primary"
+      >تحميل</b-button>
+    </div>
+
+    <div v-if="selected.id == 2" style="margin-bottom:20px !important" class="d-flex align-items-center m-2 justify-content-between">
+      <div>
+        <p style="font-size:15px" class="m-0 p-0">الرجاء تحديد موعد المقابلة</p>
+        <p style="font-size:12px" class="m-0 p-0">سيتم ارسال رسالة  علي بريد المتقدم لاعلامه بالموعد</p>
+      </div>
+    
+
+      <datepicker
+      input-class="datepicker-here form-control digits datestyle"
+      :format="DateFormater"
+      v-model="interviewdate"></datepicker>
+
+    </div>
+
       <div
         v-if="Selected_Applicaton.status"
         class="d-flex w-100 justify-content-center align-items-center"
@@ -190,7 +218,7 @@ export default {
         { key: "jobname", label: "Position", sortable: true },
         { key: "time", label: "Time", sortable: true },
         { key: "statusid", label: "Status", sortable: true },
-
+        { key: "interviewDate", label: "Interview Date", sortable: true },
         { key: "download", label: "", sortable: false },
         { key: "mail", label: "", sortable: false },
       ],
@@ -216,6 +244,7 @@ export default {
       pageOptions: [5, 10, 15],
       // selected status
       selected: "",
+      interviewdate:"",
       // valid status
       StatusOrder: [
         { id: 0, name: "معلق" },
@@ -292,12 +321,10 @@ export default {
   methods: {
     ...mapMutations("jobs", ["Update_Application"]),
     ...mapActions("jobs", ["GetApplications", "UpdateApplication"]),
-
     DateFormater(date) {
       console.log(date);
       return date.toDateString();
     },
-
     ListofJobs(value) {
       if (value && value !== "") {
         return this.AppsfilteredbyJobs[value]
@@ -323,9 +350,20 @@ export default {
       console.log(this.selected);
       temp.status = this.selected;
       temp.statusid = this.selected.id;
+
+      //interview date set 
+      temp.statusid == 2 ? temp.interviewDate = new Date(this.interviewdate).getTime() : null
+
       console.log(temp);
       // this.Update_Application(temp)
-      await this.UpdateApplication(temp);
+   
+          await this.UpdateApplication(temp).then( () => {
+          this.successMessage("تم تعديل حالة الطلب");
+        }).catch( err => {
+          this.errorMessage(err);
+        })
+      
+ 
     },
     UpdateJobsFilter(value) {
      // this.filter.postion = value
@@ -363,7 +401,12 @@ export default {
       this.filter.dateFilter.to = ""
       this.filter.postion = ""
       this.filter.string = ""
+    },
+    DownloadPdf(){
+       window.open(this.Selected_Applicaton.file, '_blank');
     }
+
+   
   },
   async mounted() {
     this.items.all = this.AllApplicatons;

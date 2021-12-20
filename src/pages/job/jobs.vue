@@ -397,14 +397,18 @@
       async UpdateStatus(value){
         this.selected.status = value
         console.log("updated");
-        await this.UpdateJob(this.selected)
+        await this.UpdateJob(this.selected).then( res => {
+          this.successMessage("تم تحديث حالة الوظيفة");
+        }).catch( err => {
+          this.errorMessage(err);
+        })
       },
       SelectJob(job){
         console.log(job);
         this.UpdateSelected_job(job)
         console.log(this.Selected_job);
         this.$router.push(`job-edit/${job.id}` )
-      }
+      },
     },
      async created(){
       await this.GetJobs()

@@ -3,7 +3,7 @@
   var secondary = localStorage.getItem('secondary_color') || '#f73164';
 
   import { Bar } from 'vue-chartjs';
-  import { mapGetters, mapActions, mapMutations } from "vuex";
+  import { mapGetters } from "vuex";
 
   export default {
     extends: Bar,

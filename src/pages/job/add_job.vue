@@ -114,8 +114,12 @@
           return null
         }
         this.UpdateSelected_job(this.job)
-        await this.AddJob()
-        this.$router.push("jobs")
+        await this.AddJob().then( res => {
+          this.successMessage("تم اضافة وظيفة جديدة");
+          this.$router.push("jobs")
+        }).catch( err => {
+          this.errorMessage(err);
+        })
       },
 
 

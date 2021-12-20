@@ -126,15 +126,25 @@
           return null
         }
         this.UpdateSelected_job(this.job)
-        await this.UpdateJob()
-        this.setEditFalse()
+        await this.UpdateJob().then( res => {
+          this.successMessage("تم تحديث الوظيفة");
+          this.setEditFalse()
+        }).catch( err => {
+          this.errorMessage(err);
+        })
+        
       },
       SetArhivePopup(){
         this.$bvModal.show("modal-arhive")	
       },
       async ArhiveJob(){
-        await this.ArchiveJob()
-        this.$router.push("jobs")
+        await this.ArchiveJob().then( res => {
+          this.successMessage("تم أرشفة الوظيفة ");
+          this.$router.push("jobs")
+        }).catch( err => {
+          this.errorMessage(err);
+        })
+        
       }
     },
     async mounted(){

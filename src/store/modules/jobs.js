@@ -136,6 +136,7 @@ const actions = {
     if (res.data.statusCode !== 200) {
       console.log(res.data.message);
       console.log(res.data);
+      throw res.data.message
     } else {
       console.log("Updated Selected_job");
       console.log(res.data);
@@ -155,6 +156,7 @@ const actions = {
     });
     if (res.data.statusCode !== 200) {
       console.log(res.data.message);
+      throw res.data.message
     } else {
       console.log("Jobs Arrived");
       console.log(res.data.body);
@@ -174,6 +176,7 @@ const actions = {
     });
     if (res.data.statusCode !== 200) {
       console.log(res.data.message);
+      throw res.data.message
     } else {
       console.log("New Job Added >>");
     }
@@ -189,6 +192,7 @@ const actions = {
       });
     if (res.data.statusCode !== 200) {
       console.log(res.data.message);
+      throw res.data.message
     } else {
       console.log("Job Arhived >>");
     }
@@ -201,6 +205,7 @@ const actions = {
       });
       if (res.data.statusCode !== 200) {
         console.log(res.data.message);
+        throw res.data.message
       } else {
         console.log("Applications Arrived");
         commit("UpdateApplications", res.data.body);
@@ -213,6 +218,7 @@ const actions = {
       });
       if (res.data.statusCode !== 200) {
         console.log(res.data.message);
+        throw res.data.message
       } else {
         console.log("Application Updated");
         dispatch("GetApplications")
