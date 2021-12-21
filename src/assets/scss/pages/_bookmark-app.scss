@@ -38,7 +38,7 @@
           }
         >.main-title {
           color: var(--theme-deafult);
-          font-weight: 500;
+          font-weight: 700;
           margin-bottom: 5px;
           display: block;
           font-size: 16px;
@@ -212,7 +212,7 @@
             }
             .hover-block {
               position: absolute;
-              right: 30px;
+              left: 30px;
               display: block;
               text-align: right;
             }
@@ -231,15 +231,15 @@
             border-top: none;
             p, h6 {
               margin-top: 0;
-              display: inline-block;
+              display: block;
             }
             h6 {
               position: relative;
-              padding-right: 15px;
+              padding-left: 15px;
               &::after {
                 position: absolute;
                 content: '-';
-                right: 0;
+                left: 0;
                 color: $dark-gray;
               }
             }
@@ -271,7 +271,7 @@
           li {
             display: inline-block;
             + li {
-              margin-left: 5px;
+              margin-right: 5px;
             }
           }
         }
@@ -293,7 +293,7 @@
         .bookmark-card {
           &.card {
             .title-bookmark {
-              padding-left: 5px;
+              padding-right: 5px;
               .content-general {
                 p {
                   display: none;
@@ -424,11 +424,11 @@
           .details-website {
             display: block;
             .title-bookmark {
-              padding-left: 15px;
+              padding-right: 15px;
               .hover-block {
                 position: relative;
                 right: unset;
-                text-align: left;
+                text-align: right;
                 top: unset;
                 padding: 0;
               }

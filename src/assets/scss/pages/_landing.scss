@@ -66,7 +66,7 @@
   h5 {
     margin-bottom: 20px;
     opacity: .8;
-    letter-spacing: 1.2px;
+
   }
 
   .btn {
@@ -274,7 +274,7 @@ $landing-color : var(--theme-deafult);
     .nav-link {
       color: $white;
       font-size: 18px;
-      letter-spacing: 1px;
+
       padding: 12px;
       transition: all 0.3s ease;
 
@@ -314,7 +314,7 @@ $landing-color : var(--theme-deafult);
       }
 
       .nav-link {
-        letter-spacing: 1.5px;
+
 
       }
     }
@@ -443,7 +443,7 @@ $landing-color : var(--theme-deafult);
       font-weight: 500;
       margin-bottom: 20px;
       line-height: 1.4;
-      letter-spacing: 1px;
+
     }
   }
 }
@@ -595,7 +595,7 @@ $landing-color : var(--theme-deafult);
       margin-bottom: 40px;
       border: none;
       transition: all 0.3s ease;
-      letter-spacing: 0.5px;
+
       border-radius: 15px;
       box-shadow: 0 0 37px rgba(8, 21, 66, 0.05);
       position: relative;
@@ -659,7 +659,7 @@ $landing-color : var(--theme-deafult);
     h4 {
       color: $color-fiord;
       font-weight: 600;
-      letter-spacing: 1px;
+
       font-size: calc(12px + (20 - 15) * ((100vw - 300px) / (1920 - 300)));
       margin-top: 15px;
     }

@@ -5,6 +5,7 @@ import layout from './modules/layout'
 import menu from './modules/menu'
 import jobs from './modules/jobs'
 import projects from './modules/projects'
+import { authentication } from './modules/authentication';
 
 
 Vue.use(Vuex);
@@ -20,7 +21,8 @@ export const store = new Vuex.Store({
       layout,
       menu,
       jobs,
-      projects
+      projects,
+      authentication
     }
 });
 

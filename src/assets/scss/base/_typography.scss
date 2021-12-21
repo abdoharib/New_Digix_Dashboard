@@ -18,9 +18,10 @@ ul {
 * a {
     color: var(--theme-deafult);
     text-decoration: none;
-    letter-spacing: 1px;
 }
-
+.text-primary{
+    color: $primary-color !important
+}
 a {
     &:hover {
         text-decoration: none;
@@ -35,7 +36,7 @@ a {
 p {
     font-size: $paragraph-font-size;
     line-height: $paragraph-line-height;
-    letter-spacing: $paragraph-letter-spacing;
+
 }
 
 code {
@@ -341,7 +342,9 @@ fieldset {
         line-height: 1.5;
     }
 }
-
+.font-Tajawal{
+    font-family: $font-Tajawal;
+}
 /**=====================
     Typography css Ends
 ==========================**/

@@ -11,6 +11,8 @@ import VueApexCharts from 'vue-apexcharts';
 Vue.use(Toasted,{
   iconPack: 'fontawesome'
 });
+import Toasted from 'vue-toasted';
+import VueSweetalert2 from 'vue-sweetalert2';
 
 import PxCard  from './components/Pxcard.vue'
 Vue.component(PxCard.name, PxCard)
@@ -22,6 +24,10 @@ import Common from './mixin';
 Vue.use(Common);
 
 Vue.use(VueFeather);
+Vue.use(VueSweetalert2);
+Vue.use(Toasted,{
+  iconPack: 'fontawesome'
+});
 Vue.use(BootstrapVue)
 Vue.component('Breadcrumbs', Breadcrumbs)
 Vue.component('apexchart', VueApexCharts);

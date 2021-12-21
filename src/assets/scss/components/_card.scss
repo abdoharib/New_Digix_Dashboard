@@ -6,7 +6,6 @@
   margin-bottom: $card-margin-bottom;
   border: none;
   transition: all 0.3s ease;
-  letter-spacing: 0.5px;
   border-radius: $card-border-radious;
   box-shadow: $card-box-shadow;
 
@@ -47,7 +46,6 @@
       color: $card-header-span-color;
       margin-top: 5px;
       display: block;
-      letter-spacing: 1px;
     }
 
     .card-header-right {

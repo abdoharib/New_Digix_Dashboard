@@ -55,13 +55,13 @@
     padding-left: 10px;
     .name {
       color: $dark-color;
-      letter-spacing: 1px;
+
       font-weight: 500;
     }
   }
   .status {
     color: $semi-dark;
-    letter-spacing: 1px;
+
     font-size: 12px;
     margin-top: 5px;
     .chat-status{
@@ -107,7 +107,7 @@
           margin-bottom: 10px;
         }
         .message-data-time {
-          letter-spacing: 1px;
+
           font-size: 12px;
           color: $semi-dark;
         }
@@ -115,7 +115,7 @@
           color: $dark-color;
           padding: 20px;
           line-height: 1.9;
-          letter-spacing: 1px;
+
           font-size: 14px;
           margin-bottom: 30px;
           width: 50%;
@@ -153,7 +153,7 @@
             border: 2px solid var(--theme-deafult);
             padding-left: 18px;
             font-size: 12px;
-            letter-spacing: 1px;
+
           }
           i{
             position: absolute;
@@ -241,7 +241,6 @@
         span {
           color: $theme-font-color;
           font-size: 14px;
-          letter-spacing: 1px;
         }
       }
       .social-media a {
@@ -264,7 +263,6 @@
       a {
         padding: 15px!important;
         color: $semi-dark!important;
-        letter-spacing: 1px;
         font-size: 14px;
         font-weight: 500;
         height: 60px;

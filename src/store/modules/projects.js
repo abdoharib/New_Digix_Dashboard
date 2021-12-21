@@ -2,102 +2,133 @@ import axios from "../../axios.js"
 
 /* eslint-disable */
 let mockDataJobs = [
- 
+
 ];
 
 
 const state = {
 
-    types:[
+  types: [
 
-    ],
-    selected_project: null
+  ],
+  loading:false
 };
 
 // getters
 const getters = {
-
-  
-
   //jobs
-  AllProjects: ({ types }) => {
-    return types.map(type => type.projects ).flat();
+  AllProjects: ({types}) => {
+    return types
   },
-  ProjectsByType: ({ Jobs },type) => {
-    return types.filter(type => type.id == type )[0].projects
-  },
-  Selected_Project: ({selected_project}) => {
-      if(selected_project) return selected_project
-  }
-
-
+  
 };
 
 // mutations
 const mutations = {
-
-  UpdateProjects: ({ types }, payload) => {
+  UpdateProjects: (state, payload) => {
     if (payload) {
-        types = payload;
+      state.types = payload;
       console.log("Projects Updated");
     } else {
       console.log("Falsy Payload in UpdateProjects");
     }
   },
-  UpdateSelected_Project: ({ selected_project }, payload) => {
-       selected_project = payload;
-      console.log("Selected_job Updated");
-    
+  Loading: (state, payload) => {
+      state.loading = payload;
   },
-
-
+  AddProject: (state, payload) => {
+    if (payload) {
+      state.types.push(payload);
+      console.log("Projects Updated");
+    } else {
+      console.log("Falsy Payload in UpdateProjects");
+    }
+  },
+  UpdateProject: (state, payload) => {
+    if (payload) {
+      state.types.forEach(item => {
+        if (item.id == payload.id) {
+          item = payload
+        }
+      });
+    } else {
+      console.log("Falsy Payload in UpdateProjects");
+    }
+  },
+  DeleteProject: (state, payload) => {
+    if (payload) {
+     state.types.forEach((item,index) => {
+      if (item.id == payload) {
+        state.types.splice(index,1)
+      }
+     })
+    } else {
+      console.log("Falsy Payload in UpdateProjects");
+    }
+  },
 };
 
 const actions = {
 
-    //jobs
-  async UpdateProject({ state, commit, dispatch }) {
-    let res = await axios.post(`api/portfolio/${state.selected_project.id}`, state.selected_project).catch((e) => {
+  //jobs
+  async UpdateProject({commit,state },payload) {
+   commit('Loading',true)
+    let res = await axios.post(`api/portfolio/${payload.id}`, payload).catch((e) => {
+      commit('Loading',false)
       console.log(e);
     });
     if (res.data.statusCode !== 200) {
+      commit('Loading',false)
       console.log(res.data.message);
     } else {
-      console.log("Updated selected_project");
+      
+      commit("UpdateProject", res.data.body)
+      commit('Loading',false)
       //  dispatch("GetJobs")
     }
   },
-  async GetProjects({ state, commit }) {
+  async GetProjects({
+    commit
+  }) {
+    commit('Loading',true)
     let res = await axios.get("api/portfolio").catch((e) => {
       console.log(e);
+      commit('Loading',false)
     });
     if (res.data.statusCode !== 200) {
+      commit('Loading',false)
       console.log(res.data.message);
     } else {
-      console.log("Projects Arrived");
+      commit('Loading',false)
       commit("UpdateProjects", res.data.body);
     }
   },
-  async AddProject({ state, commit }, new_project) {
+  async AddProject({
+    commit
+  }, new_project) {
+    commit('Loading',true)
     let res = await axios.post("api/portfolio", new_project).catch((e) => {
       console.log(e);
+      commit('Loading',false)
     });
     if (res.data.statusCode !== 200) {
+      commit('Loading',false)
       console.log(res.data.message);
     } else {
-      console.log("New Project Added >>" + new_project);
+      commit('Loading',false)
+      commit('AddProject', res.data.body);
     }
   },
-  async ArchiveProject({ state, commit }) {
+  async DeleteProject({commit},payload) {
     let res = await axios
-      .delete(`api/portfolio/${state.selected_project.id}`, state.selected_job.id)
+      .delete(`api/portfolio/${payload}`)
       .catch((e) => {
         console.log(e);
       });
     if (res.data.statusCode !== 200) {
       console.log(res.data.message);
     } else {
-      console.log("Project Arhived >>");
+      commit('DeleteProject', payload);
     }
   }
 

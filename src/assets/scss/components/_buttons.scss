@@ -143,7 +143,6 @@
   padding: 10px 30px;
   border-radius: 5px;
   background: $gradient-primary;
-  letter-spacing: 0.06rem;  
   &:hover {
     background-size: 100% !important;
   }
@@ -281,8 +280,10 @@
 /**=====================
      06. Button CSS end
 ==========================**/
-
+button{
+  font-family: $font-Tajawal !important;
+}
 a{
-  font-family: $font-rubik;
+  font-family: $font-Tajawal;
   padding-top: 5px;
 }

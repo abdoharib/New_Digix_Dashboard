@@ -4,6 +4,7 @@ import Router from "vue-router";
 import Body from '../components/body'
 
 
+import Login from '../pages/auth/login.vue'
 import OverView from '../pages/overview'
 import Projects from '../pages/projects'
 
@@ -21,9 +22,18 @@ Vue.use(Router)
 const routes = [
   { path: '', redirect: { name: 'overview' }},
   {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: {
+      title: 'تسجيل الدخول',
+    }
+  },
+  {
     path: '/dashboard',
     component: Body,
     children: [
+    
     {
       path: 'overview',
       name: 'overview',
