@@ -139,7 +139,7 @@
         <li class="profile-nav onhover-dropdown p-0 mr-0">
           <div class="media profile-media">
             <img
-              class="b-r-10"
+              class="b-r-4"
               width="37px"
               src="../assets/images/logo/logo.svg"
               alt=""
