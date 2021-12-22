@@ -11,7 +11,6 @@ import VueApexCharts from 'vue-apexcharts';
 Vue.use(Toasted,{
   iconPack: 'fontawesome'
 });
-import Toasted from 'vue-toasted';
 import VueSweetalert2 from 'vue-sweetalert2';
 
 import PxCard  from './components/Pxcard.vue'

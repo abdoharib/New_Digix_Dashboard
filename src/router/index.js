@@ -85,6 +85,7 @@ const routes = [
   ]
   }];
 
+
 const router = new Router({
   routes,
   base: '/',
@@ -94,5 +95,19 @@ const router = new Router({
     return { x: 0, y: 0 }
   }
 });
+
+router.beforeEach((to, from, next) => {
+  if(to.name !== "login"){
+    let token = localStorage.getItem("AccessToken")
+    token && token !== "" ? next() : next("/login")
+  }else{
+    let token = localStorage.getItem("AccessToken")
+    if(token && token !== ""){
+      next("")
+    }else{
+      next()
+    }
+  }
+})
 
 export default router

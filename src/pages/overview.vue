@@ -30,7 +30,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-lg-9">
+            <div class="col-12 col-lg-8">
                 <px-card style="height:100%" class="h-100">
                     <div class="card-header p-4"><h5 style="" class="mt-2">حالة الطلبات لكل وظيفة</h5></div>
                     <div id="jobs-col-chart" class="card-body apex-chart">
@@ -39,7 +39,7 @@
                 </px-card>
             </div>
             
-            <div class="col-12 col-lg-3 app-job">
+            <div class="col-12 col-lg-4 app-job">
             
                     <px-card style="height:100%" class="h-100 p-1">
                     <div class="card-header p-4"><h5 style="" class="mt-2">طلبات التوظيف</h5></div>
