@@ -79,11 +79,12 @@
       
        
         <li class="onhover-dropdown">
-          
+          <!--
           <div class="notification-box">
             <feather type="bell"></feather
             ><span class="badge badge-pill badge-secondary">4 </span>
           </div>
+          
           <ul class="notification-dropdown onhover-show-div">
             <li>
               <feather type="bell"></feather>
@@ -116,7 +117,7 @@
             <li>
               <a class="btn btn-primary" href="#">Check all notification</a>
             </li>
-          </ul>
+          </ul>-->
         </li>
      
        <!--
@@ -139,11 +140,12 @@
           <div class="media profile-media">
             <img
               class="b-r-10"
-              src="../assets/images/dashboard/profile.jpg"
+              width="37px"
+              src="../assets/images/logo/logo.svg"
               alt=""
             />
             <div class="media-body">
-              <span>Emay Walter</span>
+              <span>Admin</span>
               <p class="mb-0 font-roboto">
                 Admin <i class="middle fa fa-angle-down"></i>
               </p>
@@ -151,13 +153,13 @@
           </div>
           <ul class="profile-dropdown onhover-show-div">
             <li>
-              <a href="account"
+             <!-- <a href="account"
                 ><feather type="user"></feather><span>Account </span></a
-              >
+              > -->
             </li>
             
             <li>
-              <a><feather type="log-in"></feather><span>Log out</span></a
+              <a @click="$store.dispatch('authentication/logout',{},{root:true})"><feather type="log-in"></feather><span>Log out</span></a
               >
             </li>
           </ul>

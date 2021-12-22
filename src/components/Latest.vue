@@ -79,7 +79,8 @@ export default {
         NewRowsToday(){
             return this.data.filter(row => {
                 let RowDate = new Date(row.time); RowDate.setHours(0,0,0,0)
-                let TodayDate = new Date(1639505030668); TodayDate.setHours(0,0,0,0)
+                let TodayDate = new Date(); TodayDate.setHours(0,0,0,0)
+                
                 
                 return TodayDate.getTime() === RowDate.getTime()
             })

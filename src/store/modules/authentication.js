@@ -37,9 +37,9 @@ export const authentication = {
                         console.log(response);
                         if (response.data.statusCode == 200) {
 
-                            axios.defaults.headers.common['Authorization'] = `${response.data.body.token.AccessToken}`;
-                            localStorage.setItem('AccessToken', response.data.body.token.AccessToken)
-                            localStorage.setItem('RefreshToken', response.data.body.token.RefreshToken)
+                            axios.defaults.headers.common['Authorization'] = `${response.data.body.tokens.IdToken}`;
+                            localStorage.setItem('AccessToken', response.data.body.tokens.IdToken)
+                            localStorage.setItem('RefreshToken', response.data.body.tokens.RefreshToken)
                             // localStorage.setItem('user', JSON.stringify(response.data.body));
                             commit('loginSuccess', response);
                             resolve(response.data);

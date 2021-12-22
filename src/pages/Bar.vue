@@ -62,24 +62,45 @@
     methods:{
      UpdateChart(){
            console.log("sdagsg");
+                 const colors  = ["#CC99FF","#a927f9","#B4F0A7","#FF6381"]
+
       this.datacollection.labels=this.AllJobs.map(job => job.title)
       let OrderedAppbyStatus = {}
       this.AllApplicatons.map( app => {
-        console.log(app);
+      //  console.log(app);
         OrderedAppbyStatus[app.status.name] ? null : OrderedAppbyStatus[app.status.name] = []
         OrderedAppbyStatus[app.status.name].push(app)
       })
-      console.log(OrderedAppbyStatus);
-      this.datacollection.datasets=Object.keys(OrderedAppbyStatus).map(status => {
-        let AppOrderdbyjobname = {}
+      //console.log(OrderedAppbyStatus);
+
+      let AppOrderdbyjobname = {}
+      Object.keys(OrderedAppbyStatus).map((status,index) => {
         OrderedAppbyStatus[status].map(app => {
           AppOrderdbyjobname[app.jobname] ? null :AppOrderdbyjobname[app.jobname] = []
           AppOrderdbyjobname[app.jobname].push(app)
         })
-        console.log(AppOrderdbyjobname);
+      })
+
+     // console.log(AppOrderdbyjobname);
+      //console.log(OrderedAppbyStatus);
+
+
+      this.datacollection.datasets=Object.keys(OrderedAppbyStatus).map(( status, index ) => {
+        
+        //console.log(AppOrderdbyjobname);
+        //console.log(this.AllJobs.map(job => job.title).map(job => AppOrderdbyjobname[job] ? AppOrderdbyjobname[job].length : 0).sort());
+        let data = this.AllJobs.map(job => job.title).map(jobname => { 
+          console.log();
+          return this.AllApplicatons.filter(app => (app.jobname === jobname && app.status.name === status)).length 
+          })
+      
+        
+      console.log(data);
+        
         return {
           label:status,
-          data: this.AllJobs.map(job => job.title).map(job => AppOrderdbyjobname[job] ? AppOrderdbyjobname[job].length : 0).sort()
+          backgroundColor:colors[OrderedAppbyStatus[status][0].statusid],
+          data: data
         }
       })
      } 

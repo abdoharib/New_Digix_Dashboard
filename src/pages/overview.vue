@@ -94,7 +94,7 @@ export default {
                     position: 'bottom',
                     fontSize: '9px'
                   },
-            labels: ['مطور ويب', 'مصمم'],
+            labels: [],
             responsive: [
               {
                 breakpoint: 2000,
@@ -194,8 +194,7 @@ export default {
         await this.GetApplications();
 
       
-        this.piechart.series = Object.keys(this.AppOrderdbyjobname).map(job => this.AppOrderdbyjobname[job].length)
-        this.piechart.chartOptions.labels = Object.keys(this.AppOrderdbyjobname)
+        this.piechart.series = Object.keys(this.AppOrderdbyjobname).sort().map(job => { this.piechart.chartOptions.labels.push(job); return this.AppOrderdbyjobname[job].length})
     }
 
 }

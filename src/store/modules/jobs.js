@@ -130,7 +130,13 @@ const actions = {
   async UpdateJob({ state, commit, dispatch }, payload) {
     console.log(payload?payload:state.selected_job);
     
-    let res = await axios.post("api/jobs", payload ? payload:state.selected_job).catch((e) => {
+    let res = await axios.post("api/jobs", payload ? payload:state.selected_job,{
+      headers:{
+        "Authorization":localStorage.getItem("AccessToken")
+      }
+    }).catch((e) => {
+      if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
+
       console.log(e);
     });
     if (res.data.statusCode !== 200) {
@@ -145,13 +151,17 @@ const actions = {
     }
   },
 
-  async GetJobs({ state, commit },id = null) {
+  async GetJobs({ state, commit,dispatch },id = null) {
     console.log(id);
     let res = await axios.get("api/jobs",{
+      headers:{
+        "Authorization":localStorage.getItem("AccessToken")
+      },
       params:{
         id:id?id:''
       }
     }).catch((e) => {
+      if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
       console.log(e);
     });
     if (res.data.statusCode !== 200) {
@@ -165,13 +175,21 @@ const actions = {
     }
   },
 
-  async AddJob({ state, commit }, payload) {
+  async AddJob({ state, commit,dispatch }, payload) {
     
+    console.log(payload);
     //check if MaxNoApplications === "" if true delete it
-    let sending = payload?payload:state.selected_job
-    if(sending && sending.MaxNoApplications){payload.MaxNoApplications  == "" && delete payload.MaxNoApplications }
+    let sending = payload? payload : state.selected_job
+    console.log(sending);
+    if(sending && sending["MaxNoApplications"]){ console.log("safsaafs"); sending.MaxNoApplications  == "" && delete sending.MaxNoApplications }
 
-    let res = await axios.put("api/jobs",  sending).catch((e) => {
+    let res = await axios.put("api/jobs",  sending,{
+      headers:{
+        "Authorization":localStorage.getItem("AccessToken")
+      }
+    }).catch((e) => {
+      if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
+
       console.log(e);
     });
     if (res.data.statusCode !== 200) {
@@ -182,12 +200,17 @@ const actions = {
     }
   },
 
-  async ArchiveJob({ state, commit }) {
+  async ArchiveJob({ state, commit,dispatch }) {
     let res = await axios
       .delete("api/jobs", {
+        headers:{
+          "Authorization":localStorage.getItem("AccessToken")
+        },
         data:{id:state.selected_job.id}
       })
       .catch((e) => {
+        if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
+
         console.log(e);
       });
     if (res.data.statusCode !== 200) {
@@ -199,8 +222,14 @@ const actions = {
   },
 
   //apps
-  async GetApplications({state, commit}, filter){
-    let res = await axios.get("/api/jobs/submission").catch((e) => {
+  async GetApplications({state, commit,dispatch}, filter){
+    let res = await axios.get("/api/jobs/submission",{
+      headers:{
+        "Authorization":localStorage.getItem("AccessToken")
+      }
+    }).catch((e) => {
+     
+      if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
         console.log(e);
       });
       if (res.data.statusCode !== 200) {
@@ -213,7 +242,13 @@ const actions = {
   },
   async UpdateApplication({state, commit, dispatch}, payload=null){
     console.log(state.selected_application);
-    let res = await axios.post("/api/jobs/submission",payload?payload: state.selected_application).catch((e) => {
+    let res = await axios.post("/api/jobs/submission",payload?payload: state.selected_application, {
+      headers:{
+        "Authorization":localStorage.getItem("AccessToken")
+      }
+    }).catch((e) => {
+      if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
+
         console.log(e);
       });
       if (res.data.statusCode !== 200) {

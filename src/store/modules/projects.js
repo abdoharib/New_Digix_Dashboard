@@ -71,9 +71,15 @@ const mutations = {
 const actions = {
 
   //jobs
-  async UpdateProject({commit,state },payload) {
+  async UpdateProject({commit,state, dispatch },payload) {
    commit('Loading',true)
-    let res = await axios.post(`api/portfolio/${payload.id}`, payload).catch((e) => {
+    let res = await axios.post(`api/portfolio/${payload.id}`, payload,{
+      headers:{
+        "Authorization":localStorage.getItem("AccessToken")
+      }
+    }).catch((e) => {
+      if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
+
       commit('Loading',false)
       console.log(e);
     });
@@ -88,10 +94,16 @@ const actions = {
     }
   },
   async GetProjects({
-    commit
+    commit,dispatch
   }) {
     commit('Loading',true)
-    let res = await axios.get("api/portfolio").catch((e) => {
+    let res = await axios.get("api/portfolio",{
+      headers:{
+        "Authorization":localStorage.getItem("AccessToken")
+      }
+    }).catch((e) => {
+      if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
+
       console.log(e);
       commit('Loading',false)
     });
@@ -104,10 +116,16 @@ const actions = {
     }
   },
   async AddProject({
-    commit
+    commit,dispatch
   }, new_project) {
     commit('Loading',true)
-    let res = await axios.post("api/portfolio", new_project).catch((e) => {
+    let res = await axios.post("api/portfolio", new_project,{
+      headers:{
+        "Authorization":localStorage.getItem("AccessToken")
+      }
+    }).catch((e) => {
+      if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
+
       console.log(e);
       commit('Loading',false)
     });
@@ -119,10 +137,16 @@ const actions = {
       commit('AddProject', res.data.body);
     }
   },
-  async DeleteProject({commit},payload) {
+  async DeleteProject({commit,dispatch},payload) {
     let res = await axios
-      .delete(`api/portfolio/${payload}`)
+      .delete(`api/portfolio/${payload}`,{
+        headers:{
+          "Authorization":localStorage.getItem("AccessToken")
+        }
+      })
       .catch((e) => {
+        if(JSON.stringify(e).indexOf("401")) dispatch("authentication/logout",{},{root:true});
+
         console.log(e);
       });
     if (res.data.statusCode !== 200) {

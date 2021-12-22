@@ -113,11 +113,14 @@
         if(JSON.stringify(this.job) === JSON.stringify(this.Selected_job)){
           return null
         }
+        console.log(this.job);
         this.UpdateSelected_job(this.job)
+        
         await this.AddJob().then( res => {
           this.successMessage("تم اضافة وظيفة جديدة");
           this.$router.push("jobs")
         }).catch( err => {
+          console.log(err);
           this.errorMessage(err);
         })
       },
