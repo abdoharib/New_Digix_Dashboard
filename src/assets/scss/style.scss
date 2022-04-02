@@ -63,6 +63,7 @@
 // @import "components/tree.scss";
 @import "components/typeahead-search.scss";
 @import "components/general.scss";
+@import "components/catagory.scss";
 
 //  *** components ***
 
@@ -182,3 +183,9 @@
         overflow-y: auto;
     }
 }
+
+
+.uil{
+    color: $primary-color;
+}
+

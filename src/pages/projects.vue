@@ -1,5 +1,6 @@
 <template>
   <div>
+    <project-builder/>
     <Breadcrumbs main="" title="الإعمال" />
     <div class="container-fluid">
       <div class="email-wrap bookmark-wrap">
@@ -9,9 +10,13 @@
               <div class="card">
                 <div class="card-body">
                   <div class="email-app-sidebar left-bookmark">
+
                     <ul class="nav main-menu" role="tablist">
+
                       <li class="nav-item">
+
                         <div>
+
                           <button
                             id="show-btn"
                             class="badge-light-primary btn-block btn-mail"
@@ -20,6 +25,8 @@
                           >
                             <feather type="plus-circle"></feather>عمل جديد
                           </button>
+
+
                           <b-modal
                             no-close-on-backdrop
                             @hide="project = {}"
@@ -31,13 +38,17 @@
                             <template #modal-title>
                               إضافة عمل الى معرض الاعمال
                             </template>
+
+
                             <div class="modal-body">
                               <form
                                 class="form-bookmark needs-validation"
                                 id="bookmark-form"
                                 novalidate=""
                               >
+
                                 <div class="form-row">
+
                                   <div class="form-group col-md-12">
                                     <label for="bm-weburl">الرابط</label>
                                     <input
@@ -49,6 +60,7 @@
                                       autocomplete="off"
                                     />
                                   </div>
+
                                   <div class="form-group col-md-12">
                                     <label for="bm-title">العنوان</label>
                                     <input
@@ -60,16 +72,12 @@
                                       autocomplete="off"
                                     />
                                   </div>
+
                                   <div class="form-group col-md-12">
                                     <label>الوصف</label>
-                                    <textarea
-                                      class="form-control"
-                                      id="bm-desc"
-                                      v-model="project.description"
-                                      required=""
-                                      autocomplete="off"
-                                    ></textarea>
+                                    <vue-editor :editor-toolbar="customToolbar" v-model="project.description"></vue-editor>
                                   </div>
+
                                   <div class="form-group col-md-12">
                                     <label class="col-form-label pt-0"
                                       >صورة العمل<span class="font-danger"
@@ -94,8 +102,23 @@
                                       <option value="0">مخفي</option>
                                     </select>
                                   </div>
-                                  <div class="form-group col-md-6 mb-0">
+
+                                  <div class="form-group col-md-12 mb-0">
+                                    <label>التصنيفات</label>
+                                    <div>
+                                      <project-catagory type = 'marketing' />
+                                      <project-catagory type = 'idenity'  />
+                                      <project-catagory type = 'dev' />
+                                    </div>
+                                  </div>
+                                  
+                                  <!--
+                                  <div class="form-group col-md-12 mb-0">
                                     <label>التصنيف</label>
+
+                                    
+                                   
+                                   
                                     <select
                                       class="js-example-disabled-results"
                                       id="bm-collection"
@@ -112,7 +135,8 @@
                                       </option>
                                       <option value="4">التسويق الرقمي</option>
                                     </select>
-                                  </div>
+                                  </div> -->
+
                                 </div>
                                 <!-- <input id="index_var" type="hidden" value="6" /> -->
                                 <button
@@ -141,12 +165,18 @@
                                 </button>
                               </form>
                             </div>
+
                           </b-modal>
+
+
                         </div>
+
                       </li>
+
                       <li class="nav-item">
                         <span class="main-title"> حالة العمل</span>
                       </li>
+
                       <li>
                         <a
                           @click="sortProjects('all')"
@@ -159,6 +189,7 @@
                           ><span class="title">جميع المشاريع</span></a
                         >
                       </li>
+
                       <li>
                         <a
                           @click="sortProjects(0)"
@@ -171,6 +202,7 @@
                           ><span class="title">مخفي</span></a
                         >
                       </li>
+
                       <li>
                         <a
                           @click="sortProjects(1)"
@@ -184,9 +216,11 @@
                           ><span class="title">ظاهر </span></a
                         >
                       </li>
+
                       <li>
                         <hr />
                       </li>
+
                       <li>
                         <span class="main-title">
                           التصنيفات<span class="pull-right"
@@ -200,6 +234,7 @@
                               ></feather></a></span
                         ></span>
                       </li>
+
                       <li>
                         <a
                           @click="filterProject(1)"
@@ -218,6 +253,7 @@
                           ></a
                         >
                       </li>
+
                       <li>
                         <a
                           @click="filterProject(2)"
@@ -236,6 +272,7 @@
                           ></a
                         >
                       </li>
+
                       <li>
                         <a
                           @click="filterProject(3)"
@@ -254,6 +291,7 @@
                           ></a
                         >
                       </li>
+                      
                       <li>
                         <a
                           @click="filterProject(4)"
@@ -272,6 +310,7 @@
                           ></a
                         >
                       </li>
+
                       <li>
                         <a
                           @click="filterProject(0)"
@@ -287,7 +326,9 @@
                           <span class="title"> إزالة الفلتر</span>
                         </a>
                       </li>
+
                     </ul>
+
                   </div>
                 </div>
               </div>
@@ -465,7 +506,17 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { VueEditor } from 'vue2-editor';
+import ProjectCatagory from "../components/Project_Catagory.vue"
+import ProjectBuilder from "../components/ProjectPageBuilder.vue"
+
+
 export default {
+  components: {
+      VueEditor,
+      ProjectCatagory,
+      ProjectBuilder
+  },
   data() {
     return {
       project: {
@@ -480,6 +531,18 @@ export default {
       filterType: "",
       category_id: 0,
       status: "all",
+       customToolbar: [
+      ["bold", "italic", "underline"],
+       [{
+    align: ""
+  }, {
+    align: "center"
+  }, {
+    align: "right"
+  }, {
+    align: "justify"
+  }]
+    ]
     };
   },
   computed: {
@@ -667,5 +730,9 @@ export default {
 <style>
 .img-fluid {
   max-height: 200px;
+}
+
+.ql-formats button{
+    margin: 0px !important;
 }
 </style>
