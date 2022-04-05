@@ -2,7 +2,7 @@
   <b-modal size="xl" id="project-page-editor" title="تعديل الواجهة">
     <div class="row">
       <div class="col-3">
-        <editor-tools :AddToPage="AddtoPage" />
+       <editor-tools  /> 
       </div>
       <div class="col-9">
         <b-card cl header-tag="div" body-class="">
@@ -15,17 +15,10 @@
             <draggable class="w-100" v-model="page">
               <div
                 class="w-100"
-                v-for="(section, index) in page"
-                :key="section.id"
+                v-for="(ele, index) in PageSections"
+                :key="index"
               >
-                <component
-                  v-bind:is="section.ele"
-                  :RemoveFromPage="RemoveFromPage"
-                  :id="index"
-                  :data='section.data'
-                  :previewImage='previewImage'
-                  :image='image'
-                ></component>
+                <component :index='index' :props='ele.props' v-bind:is="EleMapper[ele.name]"></component>
               </div>
             </draggable>
           </div>
@@ -36,8 +29,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import EditorTools from "../components/EditorTools.vue";
 import draggable from "vuedraggable";
+
+import DoubleBox from "../components/sections/two_box.vue";
+import TripleBox from "../components/sections/three_box.vue";
+import OneBox from "../components/sections/one_box.vue";
+import TextBox from "../components/sections/text_section.vue";
+
+
 
 export default {
   components: {
@@ -69,10 +70,19 @@ export default {
       }
     },
   },
-  computed:{
-    image:(id)=>{
-      return this.page[id].data.preview;
-    }
+  computed: {
+    ...mapGetters("projectCategories", ["PageSections"]),
+    EleMapper: () => {
+      return {
+        DoubleBox: DoubleBox,
+        TripleBox: TripleBox,
+        OneBox: OneBox,
+        TextBox: TextBox,
+      };
+    },
+  },
+  mounted() {
+    console.log(this.PageSections)
   }
 };
 </script>

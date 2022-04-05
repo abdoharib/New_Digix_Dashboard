@@ -1,14 +1,12 @@
 <template>
   <div>
-    <div class="py-3 px-3
-    .">
+    <div class="py-3 px-3 .">
       <h5 class="m-0">الأدوات</h5>
       <p class="m-0">لو سمحتي استعملهم ارجوك</p>
     </div>
 
     <div>
       <ul style="width: fit-content" class="ml-3">
-
         <li class="two-boxs my-2">
           <div class="d-flex align-items-center tool">
             <div class="d-flex con">
@@ -19,7 +17,7 @@
             <div class="overlay">
               <b-button
                 class="btn btn-pill btn-primary m-0 p-0 pt-2 px-2"
-                @click="AddToPage(twobox)"
+                @click="Append('DoubleBox')"
               >
                 <i class="fa fa-plus"></i>
               </b-button>
@@ -38,7 +36,7 @@
             <div class="overlay">
               <b-button
                 class="btn btn-pill btn-primary m-0 p-0 pt-2 px-2"
-                @click="AddToPage(threebox)"
+                @click="Append('DoubleBox')"
               >
                 <i class="fa fa-plus"></i>
               </b-button>
@@ -55,7 +53,7 @@
             <div class="overlay">
               <b-button
                 class="btn btn-pill btn-primary m-0 p-0 pt-2 px-2"
-                @click="AddToPage(onebox)"
+                @click="Append('DoubleBox')"
               >
                 <i class="fa fa-plus"></i>
               </b-button>
@@ -88,7 +86,7 @@
             <div class="overlay">
               <b-button
                 class="btn btn-pill btn-primary m-0 p-0 pt-2 px-2"
-                @click="AddToPage(textbox)"
+                @click="Append('DoubleBox')"
               >
                 <i class="fa fa-plus"></i>
               </b-button>
@@ -101,61 +99,25 @@
 </template>
 
 <script>
-
-import TwoBox from "./sections/two_box.vue"
-import ThreeBox from "./sections/three_box.vue"
-import onebox from "./sections/one_box.vue"
-import Textbox from "./sections/text_section.vue"
-
-import OneBoxHTML from './sections/one_box'
-import TwoBoxHTML from './sections/two_box'
-import ThreeBoxHTML from './sections/three_box'
-import TextBoxHTML from './sections/text_section'
+import TwoBox from "./sections/two_box.vue";
+import ThreeBox from "./sections/three_box.vue";
+import onebox from "./sections/one_box.vue";
+import Textbox from "./sections/text_section.vue";
+import { mapActions } from 'vuex'
 
 export default {
+
   
-  props:{
-    AddToPage:{
-      required:true
-    }
+  props: {
+
   },
 
-  data:() => ({
+  data: () => ({
 
-    twobox:{
-      id:0,
-      ele:TwoBox,
-      innerHtml:TwoBoxHTML,
-      data:null
-    },
-
-    threebox:{
-      id:1,
-      ele:ThreeBox,
-      innerHtml:ThreeBoxHTML,
-      data:null
-
-    },
-    
-    onebox:{
-      id:2,
-      ele:onebox,
-      innerHtml:OneBoxHTML,
-      data:{
-        image:'',
-        preview:''
-      }
-    },
-
-    textbox:{
-      id:3,
-      ele:Textbox,
-      innerHtml:TextBoxHTML,
-      data:null
-    }
-
-  })
-
+  }),
+  methods: {
+    ...mapActions("projectCategories", ["Append"]),
+  },
 };
 </script>
 

@@ -4,7 +4,6 @@
     <b-button
       class="btn btn-pill m-2 p-0 pt-2 px-2"
       style="height:fit-content;"
-      @click="RemoveFromPage(id)"
     >
       <i class="fa fa-trash-o"></i>
     </b-button>
@@ -19,14 +18,7 @@
 
 <script>
 export default {
-    props:{
-    RemoveFromPage:{
-      required:true
-    },
-    id:{
-      required:true
-    }
-  }
+   
 };
 </script>
 

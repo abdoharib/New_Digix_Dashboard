@@ -3,7 +3,6 @@
     <b-button
       class="btn remove btn-pill m-2 p-0 pt-2 px-2"
       style="height: fit-content"
-      @click="RemoveFromPage(id)"
     >
       <i class="fa fa-trash-o"></i>
     </b-button>
@@ -14,7 +13,7 @@
       >
       <img  class="box-1-img" :src="image" alt="">
         <div class="file-input">
-          <input type="file" id="file" class="file" @change="(e)=>(previewImage(e,id))" />
+          <input type="file" id="file" class="file" />
           <label class="p-3" for="file">
             <i class="fa fa-plus"></i>
             <p class="file-name"></p>
@@ -27,38 +26,7 @@
 
 <script>
 export default {
-  props: {
-    RemoveFromPage: {
-      required: true,
-    },
-    id: {
-      required: true,
-    },
-    data:{
-      required:true
-    },
-    image:{
-      required:true
-    }
-  },
-  methods:{
-        previewImage: function (event, index) {
 
-    
-      var input = event.target;
-      if (input.files) {
-      this.data = {};
-      let section = this.data
-        var reader = new FileReader();
-        reader.onload = (e) => {
-          
-          section.preview = e.target.result;
-        };
-        section.image = input.files[0];
-        reader.readAsDataURL(input.files[0]);
-      }
-    },
-  }
 };
 </script>
 

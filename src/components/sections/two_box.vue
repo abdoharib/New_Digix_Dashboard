@@ -3,27 +3,45 @@
     <b-button
       class="btn btn-pill m-2 p-0 pt-2 px-2"
       style="height:fit-content;"
-      @click="RemoveFromPage(id)"
+      @click="Remove(index)"
     >
       <i class="fa fa-trash-o"></i>
     </b-button>
     <div class="d-flex con mb-3 w-100 justify-content-between">
-      <div id="box-1" class="box mr-3"></div>
+      <div id="box-1" class="box mr-3">
+
+        <img  class="box-1-img" :src="image" alt="">
+
+        <div class="file-input">
+          <input type="file" id="file" class="file" />
+          <label class="p-3" for="file">
+            <i class="fa fa-plus"></i>
+            <p class="file-name"></p>
+          </label>
+        </div>
+        
+
+      </div>
       <div id="box-2" class="box"></div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-    props:{
-    RemoveFromPage:{
+  props:{
+    index:{
       required:true
     },
-    id:{
+    props:{
       required:true
     }
-  }
+  },
+    methods: {
+    ...mapActions("projectCategories", ["Remove"]),
+  },
 };
 </script>
 
@@ -41,8 +59,57 @@ export default {
   width: fit-content;
   height: 308px;
   .box {
+      position: relative;
+
     aspect-ratio: 1;
     width: 100%;
   }
+}
+
+
+.file {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+.file-input {
+  background-color: unset;
+}
+.file-input label {
+  display: block;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 25px;
+  background:  #7873f5;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+}
+
+.file-name {
+  position: absolute;
+  bottom: -35px;
+  left: 10px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+input:hover + label,
+input:focus + label {
+  transform: scale(1.02);
+}
+.box-1-img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
 }
 </style>

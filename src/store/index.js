@@ -5,6 +5,8 @@ import layout from './modules/layout'
 import menu from './modules/menu'
 import jobs from './modules/jobs'
 import projects from './modules/projects'
+import projectCategories from './modules/projectCategories'
+
 import { authentication } from './modules/authentication';
 
 
@@ -22,7 +24,8 @@ export const store = new Vuex.Store({
       menu,
       jobs,
       projects,
-      authentication
+      authentication,
+      projectCategories
     }
 });
 
