@@ -253,7 +253,16 @@ const state = {
                     {
                         name: "DoubleBox",
                         props:{
-
+                            images:[
+                                {
+                                    url:'',
+                                    data:''
+                                },
+                                {
+                                    url:'',
+                                    data:''
+                                }
+                            ]
                         },
                         template: (children, props = null) => {
 
@@ -340,6 +349,10 @@ const mutations = {
         let Body = state.page.children[1];
         Body.children.splice(index,1)
     },
+    ReplaceBody(state,NewBody){
+        let Body = state.page.children[1];
+        Body.children = NewBody
+    },
 
     EditProps(state,payload) {
         let Body = state.page.children[1];
@@ -359,6 +372,7 @@ const actions = {
     },
 
     UpdateProps({ commit } ,payload) {
+        console.log(payload);
         commit("EditProps",payload)
     }
 };

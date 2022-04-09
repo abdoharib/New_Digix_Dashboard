@@ -10,17 +10,18 @@
 
           <div
             style="width: fitcontent"
-            class="editor d-flex justify-content-center shadow p-3 rounded"
+            class="editor  shadow p-3 rounded"
           >
             <draggable class="w-100" v-model="page">
               <div
                 class="w-100"
-                v-for="(ele, index) in PageSections"
+                v-for="(ele, index) in $store.state.projectCategories.page.children[1].children"
                 :key="index"
               >
                 <component :index='index' :props='ele.props' v-bind:is="EleMapper[ele.name]"></component>
               </div>
             </draggable>
+
           </div>
         </b-card>
       </div>
@@ -29,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState, mapMutations } from "vuex";
 import EditorTools from "../components/EditorTools.vue";
 import draggable from "vuedraggable";
 
@@ -71,7 +72,17 @@ export default {
     },
   },
   computed: {
+    ...mapState("projectCategories",['page']),
     ...mapGetters("projectCategories", ["PageSections"]),
+    ...mapMutations("projectCategories",["ReplaceBody"]),
+    List:{
+      get(){
+        return this.PageSections
+      },
+      set(value){
+
+      }
+    },
     EleMapper: () => {
       return {
         DoubleBox: DoubleBox,
@@ -82,7 +93,7 @@ export default {
     },
   },
   mounted() {
-    console.log(this.PageSections)
+    console.log(this.$store.state.projectCategories.page)
   }
 };
 </script>

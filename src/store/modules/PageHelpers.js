@@ -4,7 +4,16 @@ export default {
         DoubleBox: {
             name: "DoubleBox",
             props:{
-
+                images:[
+                    {
+                        url:'',
+                        data:''
+                    },
+                    {
+                        url:'',
+                        data:''
+                    }
+                ]
             },
             template: (children, props = null) => {
 

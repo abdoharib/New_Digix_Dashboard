@@ -23,6 +23,7 @@
     "es6-promise": "^4.2.8",
     "feather-icons": "^4.24.1",
     "firebase": "^7.1.0",
+    "immer": "^9.0.12",
     "knob": "^1.1.0",
     "leaflet": "^1.5.1",
     "sass-loader": "^8.0.0",
