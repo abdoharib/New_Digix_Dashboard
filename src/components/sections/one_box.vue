@@ -11,10 +11,15 @@
         id="box-1"
         class="box d-flex justify-content-center align-items-center"
       >
-      <img  class="box-1-img" :src="image" alt="">
+        <img class="box-1-img box-img" :src="props.images[0].url" alt="" />
         <div class="file-input">
-          <input type="file" id="file" class="file" />
-          <label class="p-3" for="file">
+          <input
+            type="file"
+            :id="'file1-' + index"
+            class="file"
+            @change="UpdateFirst"
+          />
+          <label class="p-3" :for="'file1-' + index">
             <i class="fa fa-plus"></i>
             <p class="file-name"></p>
           </label>
@@ -25,8 +30,38 @@
 </template>
 
 <script>
-export default {
+import { mapActions } from "vuex";
 
+export default {
+  props: {
+    index: {
+      required: true,
+    },
+    props: {
+      required: true,
+    },
+  },
+  methods: {
+    ...mapActions("projectCategories", ["Remove", "UpdateProps"]),
+
+    UpdateFirst: function (event) {
+      var input = event.target;
+
+      if (input.files) {
+        var reader = new FileReader();
+
+        reader.onload = (e) => {
+          let TempProps = JSON.parse(JSON.stringify(this.props));
+          TempProps.images[0] = {
+            url: e.target.result,
+            data: input.files[0],
+          };
+          this.UpdateProps({ props: TempProps, index: this.index });
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+  },
 };
 </script>
 
@@ -39,13 +74,16 @@ export default {
     right: -20px;
     position: absolute;
     border: 2px solid black;
+    z-index: 3;
   }
 }
+
 .con {
   width: 100%;
   height: 308px;
   .box {
     position: relative;
+    width: 100%;
     height: 100%;
     width: 100%;
   }
@@ -59,6 +97,10 @@ export default {
 }
 .file-input {
   background-color: unset;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 .file-input label {
   display: block;
@@ -66,7 +108,7 @@ export default {
   width: fit-content;
   height: fit-content;
   border-radius: 25px;
-  background:  #7873f5;
+  background: #7873f5;
   box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -89,13 +131,11 @@ input:hover + label,
 input:focus + label {
   transform: scale(1.02);
 }
-.box-1-img{
+.box-img {
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
 }
-
-
 </style>

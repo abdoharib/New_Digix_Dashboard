@@ -29,12 +29,12 @@
         </div>
       </div>
       <div id="box-2" class="box">
+        
         <img
           class="box-2-img box-img"
           :src="props.images[1].url"
           alt=""
         />
-
         <div class="file-input">
           <input
             type="file"
@@ -47,6 +47,7 @@
             <p class="file-name"></p>
           </label>
         </div>
+
       </div>
     </div>
   </div>

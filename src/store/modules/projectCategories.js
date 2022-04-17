@@ -363,8 +363,8 @@ const mutations = {
 const actions = {
 
     Append( { commit } ,ElementName) {
-
-        commit("AddToBody",Sections[ElementName])
+        let temp = JSON.parse(JSON.stringify(Sections[ElementName]))
+        commit("AddToBody",temp)
     },
 
     Remove({ commit } ,index) {

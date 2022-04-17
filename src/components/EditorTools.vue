@@ -6,7 +6,7 @@
     </div>
 
     <div>
-      <ul style="width: fit-content" class="ml-3">
+      <ul style="width: fit-content;" class="ml-3">
         <li class="two-boxs my-2">
           <div class="d-flex align-items-center tool">
             <div class="d-flex con">
@@ -36,7 +36,7 @@
             <div class="overlay">
               <b-button
                 class="btn btn-pill btn-primary m-0 p-0 pt-2 px-2"
-                @click="Append('DoubleBox')"
+                @click="Append('TripleBox')"
               >
                 <i class="fa fa-plus"></i>
               </b-button>
@@ -53,7 +53,7 @@
             <div class="overlay">
               <b-button
                 class="btn btn-pill btn-primary m-0 p-0 pt-2 px-2"
-                @click="Append('DoubleBox')"
+                @click="Append('OneBox')"
               >
                 <i class="fa fa-plus"></i>
               </b-button>
@@ -86,7 +86,7 @@
             <div class="overlay">
               <b-button
                 class="btn btn-pill btn-primary m-0 p-0 pt-2 px-2"
-                @click="Append('DoubleBox')"
+                @click="Append('TextBox')"
               >
                 <i class="fa fa-plus"></i>
               </b-button>
@@ -99,10 +99,7 @@
 </template>
 
 <script>
-import TwoBox from "./sections/two_box.vue";
-import ThreeBox from "./sections/three_box.vue";
-import onebox from "./sections/one_box.vue";
-import Textbox from "./sections/text_section.vue";
+
 import { mapActions } from 'vuex'
 
 export default {
@@ -121,7 +118,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss"  >
 $two-box-size: 100px;
 $three-box-size: 64px;
 $box-backround: url("../assets/images/x-image.png");

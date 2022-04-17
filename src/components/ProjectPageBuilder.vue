@@ -2,26 +2,28 @@
   <b-modal size="xl" id="project-page-editor" title="تعديل الواجهة">
     <div class="row">
       <div class="col-3">
-       <editor-tools  /> 
+        <editor-tools />
       </div>
       <div class="col-9">
         <b-card cl header-tag="div" body-class="">
           <h5 class="m-0 p-0" slot="header">التسويق</h5>
 
-          <div
-            style="width: fitcontent"
-            class="editor  shadow p-3 rounded"
-          >
-            <draggable class="w-100" v-model="page">
-              <div
-                class="w-100"
-                v-for="(ele, index) in $store.state.projectCategories.page.children[1].children"
-                :key="index"
+          <div style="width: fitcontent; max-height:400px; overflow:auto;" class="editor shadow p-2 rounded">
+            <draggable v-bind="dragOptions" class="w-100" v-model="List">
+              <transition-group
+                type="transition"
+                :name="!drag ? 'flip-list' : null"
+                tag="div"
               >
-                <component :index='index' :props='ele.props' v-bind:is="EleMapper[ele.name]"></component>
-              </div>
+                <div class="w-100 list-group-item" v-for="(ele, index) in List" :key="index">
+                  <component
+                    :index="index"
+                    :props="ele.props"
+                    v-bind:is="EleMapper[ele.name]"
+                  ></component>
+                </div>
+              </transition-group>
             </draggable>
-
           </div>
         </b-card>
       </div>
@@ -30,7 +32,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import EditorTools from "../components/EditorTools.vue";
 import draggable from "vuedraggable";
 
@@ -39,8 +41,6 @@ import TripleBox from "../components/sections/three_box.vue";
 import OneBox from "../components/sections/one_box.vue";
 import TextBox from "../components/sections/text_section.vue";
 
-
-
 export default {
   components: {
     EditorTools,
@@ -48,6 +48,7 @@ export default {
   },
   data: () => ({
     page: [],
+    drag: false,
   }),
   methods: {
     AddtoPage(section) {
@@ -72,16 +73,18 @@ export default {
     },
   },
   computed: {
-    ...mapState("projectCategories",['page']),
     ...mapGetters("projectCategories", ["PageSections"]),
-    ...mapMutations("projectCategories",["ReplaceBody"]),
-    List:{
-      get(){
-        return this.PageSections
+    ...mapMutations({
+      ReplaceBody: "projectCategories/ReplaceBody",
+    }),
+    List: {
+      get() {
+        return this.PageSections;
       },
-      set(value){
-
-      }
+      set(value) {
+        console.log(value);
+        this.$store.commit("projectCategories/ReplaceBody", value);
+      },
     },
     EleMapper: () => {
       return {
@@ -91,10 +94,18 @@ export default {
         TextBox: TextBox,
       };
     },
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost",
+      };
+    },
   },
   mounted() {
-    console.log(this.$store.state.projectCategories.page)
-  }
+    console.log(this.$store.state.projectCategories.page);
+  },
 };
 </script>
 
@@ -102,5 +113,32 @@ export default {
 .card-header {
   padding-top: 1rem !important;
   padding-bottom: 1rem !important;
+}
+.button {
+  margin-top: 35px;
+}
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
+.ghost {
+  opacity: 0.5;
+  background: #c8ebfb;
+}
+.list-group {
+  min-height: 20px;
+}
+.list-group-item {
+  border: 0px;
+  cursor: move;
+}
+.list-group-item i {
+  cursor: pointer;
+}
+
+.editor{
+
 }
 </style>
