@@ -33,6 +33,7 @@
 import dev from "./catagories-icons/dev.vue"
 import idenity from "./catagories-icons/idenity.vue"
 import marketing from "./catagories-icons/marketing.vue"
+import { mapActions } from 'vuex'
 
 
 export default {
@@ -45,9 +46,14 @@ export default {
       type:{
           required:true,
           type:String
+      },
+      project:{
+        required:true,
+        type:Object
       }
     
   },
+
   data: () => ({
       idenity:idenity,
       Catagories:{
@@ -55,7 +61,7 @@ export default {
               name:"التسويق",
               icon:marketing
           },
-          idenity:{
+          branding:{
               name:"الهوية التجارية",
               icon:idenity
           },
@@ -66,7 +72,13 @@ export default {
       }
   }),
   methods:{
+        ...mapActions("projectCategories", ["GetCatagory"]),
+
     openProjectBuilder(){
+      this.GetCatagory({
+        project:this.project,
+        type:this.type 
+      })
       this.$bvModal.show(`project-page-editor`)
 
     }

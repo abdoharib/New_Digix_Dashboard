@@ -106,9 +106,9 @@
                                   <div class="form-group col-md-12 mb-0">
                                     <label>التصنيفات</label>
                                     <div>
-                                      <project-catagory type = 'marketing' />
-                                      <project-catagory type = 'idenity'  />
-                                      <project-catagory type = 'dev' />
+                                      <project-catagory :project="project" type = 'marketing' />
+                                      <project-catagory :project="project" type = 'branding'  />
+                                      <project-catagory :project="project" type = 'dev' />
                                     </div>
                                   </div>
                                   
