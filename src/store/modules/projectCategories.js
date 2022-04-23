@@ -1,4 +1,4 @@
-//import axios from "../../axios.js"
+import axios from "../../axios.js"
 import Sections from "./PageHelpers"
 /* eslint-disable */
 let mockDataProjectsCatagory = {
@@ -226,7 +226,7 @@ const actions = {
 
     GetCatagory({commit, rootState},payload) {
         let { catagories, id } = payload.project
-        console.log()
+        console.log(catagories)
 
         commit("UpdateCatagory",{
             project_id:id,
@@ -235,6 +235,23 @@ const actions = {
             }})
         
     },
+
+    async UpdateCatagory({commit, state}){
+        Object.keys(state.catagory.catagories).forEach(key => {
+            delete state.catagory.catagories[key].HTML
+        })
+        let res = await axios.post(`/api/portfolio/categories`,state.catagory,{
+            headers:{
+                "Authorization":localStorage.getItem("AccessToken")
+
+            }
+        });
+        if (res.data.statusCode !== 200) {
+            console.log(res.data.message);
+          } else {
+            commit('UpdateCatagory', res.data.body);
+          }
+    }
 
 
 

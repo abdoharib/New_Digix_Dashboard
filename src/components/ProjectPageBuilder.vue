@@ -1,5 +1,5 @@
 <template>
-  <b-modal size="xl" id="project-page-editor" title="تعديل الواجهة">
+  <b-modal @ok='handleOk' size="xl" id="project-page-editor" title="تعديل الواجهة">
     <div class="row">
       <div class="col-3">
         <editor-tools />
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import EditorTools from "../components/EditorTools.vue";
 import draggable from "vuedraggable";
 
@@ -51,6 +51,14 @@ export default {
     drag: false,
   }),
   methods: {
+        ...mapActions("projectCategories", ["UpdateCatagory"]),
+
+    handleOk(bvModalEvent) {
+        // Prevent modal from closing
+        bvModalEvent.preventDefault()
+        // Trigger submit handler
+        this.UpdateCatagory()
+    },
     AddtoPage(section) {
       this.page.push(section);
     },
