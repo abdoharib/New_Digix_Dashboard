@@ -1,6 +1,6 @@
 <template>
   <div>
-    <project-builder/>
+    <project-builder />
     <Breadcrumbs main="" title="الإعمال" />
     <div class="container-fluid">
       <div class="email-wrap bookmark-wrap">
@@ -10,13 +10,9 @@
               <div class="card">
                 <div class="card-body">
                   <div class="email-app-sidebar left-bookmark">
-
                     <ul class="nav main-menu" role="tablist">
-
                       <li class="nav-item">
-
                         <div>
-
                           <button
                             id="show-btn"
                             class="badge-light-primary btn-block btn-mail"
@@ -26,10 +22,11 @@
                             <feather type="plus-circle"></feather>عمل جديد
                           </button>
 
-
                           <b-modal
                             no-close-on-backdrop
-                            @hide="project = {}"
+                            @hide="ClearNewProject"
+                            @abort="ClearNewProject"
+                            
                             id="bv-modal-example"
                             centered
                             size="lg"
@@ -39,6 +36,216 @@
                               إضافة عمل الى معرض الاعمال
                             </template>
 
+                            <div class="modal-body">
+                              <form
+                                class="form-bookmark needs-validation"
+                                id="bookmark-form"
+                                novalidate=""
+                              >
+                                <div class="form-row">
+                                  <div class="form-group col-md-12">
+                                    <label for="bm-weburl">الرابط</label>
+                                    <input
+                                      class="form-control"
+                                      id="bm-weburl"
+                                      v-model="NewProject.link"
+                                      type="text"
+                                      required=""
+                                      autocomplete="off"
+                                    />
+                                  </div>
+
+                                  <div class="form-group col-md-12">
+                                    <label for="bm-title">العنوان</label>
+                                    <input
+                                      class="form-control"
+                                      id="bm-title"
+                                      v-model="NewProject.title"
+                                      type="text"
+                                      required=""
+                                      autocomplete="off"
+                                    />
+                                  </div>
+
+                                  <div class="form-group col-md-12">
+                                    <label>الوصف</label>
+                                    <vue-editor
+                                      :editor-toolbar="customToolbar"
+                                      v-model="NewProject.description"
+                                    ></vue-editor>
+                                  </div>
+
+                                  <div class="form-group col-md-2 mb-0">
+                                    <label>الحالة</label>
+                                    <div
+                                      class="
+                                        text-right
+                                        switch-md
+                                        icon-state
+                                        mt-1
+                                      "
+                                      style="width: fit-content"
+                                    >
+                                      <label class="switch switch-md m-0 mr-2">
+                                        <input
+                                          type="checkbox"
+                                          :checked="NewProject.status"
+                                          @change="
+                                            (e) => {
+                                              NewProject.status = e.target
+                                                .checked
+                                                ? 1
+                                                : 0;
+                                            }
+                                          "
+                                        /><span class="switch-state"></span>
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group col-md-10">
+                                    <label class="col-form-label pt-0"
+                                      >صورة العمل<span class="font-danger"
+                                        >*</span
+                                      ></label
+                                    >
+                                    <input
+                                      style="height: unset"
+                                      class="form-control p-2"
+                                      type="file"
+                                      @input="toBase64New"
+                                    />
+                                  </div>
+
+                                                                    <div class="form-row">
+                                    <!--client-->
+                                    <div class="form-group col-md-5">
+                                      <label>العميل</label>
+                                      <b-input v-model="NewProject.details.client" />
+                                    </div>
+
+                                    <!--created by-->
+                                    <div class="form-group col-md-7">
+                                      <label>تنفيد</label>
+                                      <b-input v-model="NewProject.details.createdBy" />
+                                    </div>
+
+                                    <!--date-->
+                                    <div class="form-group col-md-5">
+                                      <label>تاريخ الأنجاز</label>
+                                      <b-datepicker v-model="NewProject.details.finishedAt" />
+                                    </div>
+
+                                    <!--skills-->
+                                    <div class="form-group col-md-7">
+                                      <label>المهارات</label>
+                                      <b-input v-model="NewProject.details.skills" />
+                                    </div>
+
+                                    <!--client brief-->
+                                    <div class="form-group col-md-12">
+                                      <label>نبدة عن العميل</label>
+                                      <vue-editor
+                                        :editor-toolbar="customToolbar"
+                                        v-model="NewProject.details.clientBrief"
+                                      >
+                                      </vue-editor>
+                                    </div>
+                                  </div>
+
+                                  <!--
+                                    <select
+                                      class="js-example-basic-single"
+                                      id="bm-group"
+                                      v-model="NewProject.status"
+                                    >
+                                      <option value="1">ظاهر</option>
+                                      <option value="0">مخفي</option>
+                                    </select>->>
+                                  </div>-->
+
+                                  <div class="form-group col-md-12 mb-4">
+                                    <label>التصنيفات</label>
+                                    <div>
+                                      <project-catagory
+                                        :isEditable="false"
+                                        :project="NewProject"
+                                        type="marketing"
+                                      />
+                                      <project-catagory
+                                        :isEditable="false"
+                                        :project="NewProject"
+                                        type="branding"
+                                      />
+                                      <project-catagory
+                                        :isEditable="false"
+                                        :project="NewProject"
+                                        type="development"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <!--
+                                  <div class="form-group col-md-12 mb-0">
+                                    <label>التصنيف</label>
+
+                                    
+                                   
+                                   
+                                    <select
+                                      class="js-example-disabled-results"
+                                      id="bm-collection"
+                                      v-model="project.category_id"
+                                    >
+                                      <option value="1">
+                                        تصميم وتطوير التطبيقات
+                                      </option>
+                                      <option value="2">
+                                        حلول الأعمال الرقمية
+                                      </option>
+                                      <option value="3">
+                                        بناء الهوية التجارية
+                                      </option>
+                                      <option value="4">التسويق الرقمي</option>
+                                    </select>
+                                  </div> -->
+                                </div>
+                                <!-- <input id="index_var" type="hidden" value="6" /> -->
+                                <button
+                                  class="btn btn-secondary"
+                                  id="Bookmark"
+                                  type="button"
+                                  :disabled="loading"
+                                  @click="submitProject()"
+                                >
+                                  حفظ
+                                </button>
+                                <button
+                                  class="btn btn-primary ml-2"
+                                  type="button"
+                                  data-dismiss="modal"
+                                  @click="
+                                    project = {};
+                                    $bvModal.hide('bv-modal-example');
+                                  "
+                                >
+                                  إلغاء
+                                </button>
+                              </form>
+                            </div>
+                          </b-modal>
+
+                          <b-modal
+                            no-close-on-backdrop
+                            @hide="project = {}"
+                            id="bv-modal-example-edit"
+                            centered
+                            size="lg"
+                            hide-footer
+                          >
+                            <template #modal-title>
+                              تعديل بيانات عمل
+                            </template>
 
                             <div class="modal-body">
                               <form
@@ -46,9 +253,7 @@
                                 id="bookmark-form"
                                 novalidate=""
                               >
-
                                 <div class="form-row">
-
                                   <div class="form-group col-md-12">
                                     <label for="bm-weburl">الرابط</label>
                                     <input
@@ -75,43 +280,118 @@
 
                                   <div class="form-group col-md-12">
                                     <label>الوصف</label>
-                                    <vue-editor :editor-toolbar="customToolbar" v-model="project.description"></vue-editor>
+                                    <vue-editor
+                                      :editor-toolbar="customToolbar"
+                                      v-model="project.description"
+                                    ></vue-editor>
                                   </div>
 
-                                  <div class="form-group col-md-12">
+                                  <div class="form-group col-md-2 mb-0">
+                                    <label>الحالة</label>
+                                    <div
+                                      class="
+                                        text-right
+                                        switch-md
+                                        icon-state
+                                        mt-1
+                                      "
+                                      style="width: fit-content"
+                                    >
+                                      <label class="switch switch-md m-0 mr-2">
+                                        <input
+                                          type="checkbox"
+                                          :checked="project.status"
+                                          @change="
+                                            (e) => {
+                                              project.status = e.target.checked
+                                                ? 1
+                                                : 0;
+                                            }
+                                          "
+                                        /><span class="switch-state"></span>
+                                      </label>
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group col-md-10">
                                     <label class="col-form-label pt-0"
                                       >صورة العمل<span class="font-danger"
                                         >*</span
                                       ></label
                                     >
                                     <input
-                                      class="form-control"
+                                      style="height: unset"
+                                      class="form-control p-2"
                                       type="file"
                                       @input="toBase64"
                                     />
                                   </div>
 
-                                  <div class="form-group col-md-6 mb-0">
-                                    <label>الحالة</label>
+                                  <div class="form-row">
+                                    <!--client-->
+                                    <div class="form-group col-md-5">
+                                      <label>العميل</label>
+                                      <b-input v-model="project.details.client" />
+                                    </div>
+
+                                    <!--created by-->
+                                    <div class="form-group col-md-7">
+                                      <label>تنفيد</label>
+                                      <b-input  v-model="project.details.createdBy" />
+                                    </div>
+
+                                    <!--date-->
+                                    <div class="form-group col-md-5">
+                                      <label>تاريخ الأنجاز</label>
+                                      <b-datepicker v-model="project.details.finishedAt" />
+                                    </div>
+
+                                    <!--skills-->
+                                    <div class="form-group col-md-7">
+                                      <label>المهارات</label>
+                                      <b-input v-model="project.details.skills" />
+                                    </div>
+
+                                    <!--client brief-->
+                                    <div class="form-group col-md-12">
+                                      <label>نبدة عن العميل</label>
+                                      <vue-editor
+                                      v-model="project.details.clientBrief"
+                                      :editor-toolbar="customToolbar"
+                                      >
+                                      </vue-editor>
+                                    </div>
+                                  </div>
+
+                                  <!--
                                     <select
                                       class="js-example-basic-single"
                                       id="bm-group"
-                                      v-model="project.status"
+                                      v-model="NewProject.status"
                                     >
                                       <option value="1">ظاهر</option>
                                       <option value="0">مخفي</option>
-                                    </select>
-                                  </div>
+                                    </select>->>
+                                  </div>-->
 
-                                  <div class="form-group col-md-12 mb-0">
+                                  <div class="form-group col-md-12 mb-4">
                                     <label>التصنيفات</label>
                                     <div>
-                                      <project-catagory :project="project" type = 'marketing' />
-                                      <project-catagory :project="project" type = 'branding'  />
-                                      <project-catagory :project="project" type = 'dev' />
+                                      <project-catagory
+                                        :project="project"
+                                        type="marketing"
+                                      />
+                                      <project-catagory
+                                        :project="project"
+                                        type="branding"
+                                      />
+                                      <project-catagory
+                                        :project="project"
+                                        type="development"
+                                      />
                                     </div>
                                   </div>
-                                  
+
                                   <!--
                                   <div class="form-group col-md-12 mb-0">
                                     <label>التصنيف</label>
@@ -136,7 +416,6 @@
                                       <option value="4">التسويق الرقمي</option>
                                     </select>
                                   </div> -->
-
                                 </div>
                                 <!-- <input id="index_var" type="hidden" value="6" /> -->
                                 <button
@@ -144,11 +423,7 @@
                                   id="Bookmark"
                                   type="button"
                                   :disabled="loading"
-                                  @click="
-                                    project.id
-                                      ? updateProject()
-                                      : submitProject()
-                                  "
+                                  @click="updateProject()"
                                 >
                                   حفظ
                                 </button>
@@ -158,19 +433,15 @@
                                   data-dismiss="modal"
                                   @click="
                                     project = {};
-                                    $bvModal.hide('bv-modal-example');
+                                    $bvModal.hide('bv-modal-example-edit');
                                   "
                                 >
                                   إلغاء
                                 </button>
                               </form>
                             </div>
-
                           </b-modal>
-
-
                         </div>
-
                       </li>
 
                       <li class="nav-item">
@@ -291,7 +562,7 @@
                           ></a
                         >
                       </li>
-                      
+
                       <li>
                         <a
                           @click="filterProject(4)"
@@ -326,9 +597,7 @@
                           <span class="title"> إزالة الفلتر</span>
                         </a>
                       </li>
-
                     </ul>
-
                   </div>
                 </div>
               </div>
@@ -505,23 +774,23 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import { VueEditor } from 'vue2-editor';
-import ProjectCatagory from "../components/Project_Catagory.vue"
-import ProjectBuilder from "../components/ProjectPageBuilder.vue"
-
+import { mapGetters, mapActions, mapMutations } from "vuex";
+import { VueEditor } from "vue2-editor";
+import ProjectCatagory from "../components/Project_Catagory.vue";
+import ProjectBuilder from "../components/ProjectPageBuilder.vue";
 
 export default {
   components: {
-      VueEditor,
-      ProjectCatagory,
-      ProjectBuilder
+    VueEditor,
+    ProjectCatagory,
+    ProjectBuilder,
   },
   data() {
     return {
       project: {
         link: "",
         title: "",
+        details:{},
         description: "",
         status: 1,
         category_id: "",
@@ -531,29 +800,42 @@ export default {
       filterType: "",
       category_id: 0,
       status: "all",
-       customToolbar: [
-      ["bold", "italic", "underline"],
-       [{
-    align: ""
-  }, {
-    align: "center"
-  }, {
-    align: "right"
-  }, {
-    align: "justify"
-  }]
-    ]
+      customToolbar: [
+        [
+        {
+          header: [false, 1, 2, 3, 4, 5, 6],
+        },
+      ],
+        ["bold", "italic", "underline"],
+        [
+          {
+            align: "",
+          },
+          {
+            align: "center",
+          },
+          {
+            align: "right",
+          },
+          {
+            align: "justify",
+          },
+        ],
+      ],
     };
   },
   computed: {
-    ...mapGetters("projects", ["AllProjects"]),
+    ...mapGetters("projects", ["AllProjects", "NewProject"]),
     filteredProjects() {
       if (this.filterType == "category_id") {
         if (this.category_id == 0) {
           return this.AllProjects;
         } else {
-          return this.AllProjects.filter(
-            (item) => item.category_id == this.category_id
+          console.log(this.category_id);
+          return this.AllProjects.filter((item) =>
+            Array.isArray(item.category_id)
+              ? item.category_id.indexOf(this.category_id) >= 0
+              : item.category_id == this.category_id
           );
         }
       } else {
@@ -575,11 +857,13 @@ export default {
       "AddProject",
       "DeleteProject",
     ]),
+    ...mapMutations("projects", ["ClearNewProject"]),
     editMode(item) {
       this.project = item;
-      this.$bvModal.show("bv-modal-example");
+      this.$bvModal.show("bv-modal-example-edit");
     },
     getCategory(id) {
+      console.log(id);
       let categories = [
         {
           id: 1,
@@ -600,7 +884,7 @@ export default {
       ];
       let category = categories.filter((item) => item.id == id);
 
-      return category[0].name;
+      return category.map((v) => v.name).join(",");
     },
     toBase64(file) {
       console.log(file);
@@ -609,6 +893,18 @@ export default {
         reader.readAsDataURL(file.target.files[0]);
         reader.onload = () => {
           this.project.image = reader.result; // variable to hold base64 image
+          resolve(reader.result);
+        };
+        reader.onerror = (error) => reject(error);
+      });
+    },
+    toBase64New(file) {
+      console.log(file);
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.target.files[0]);
+        reader.onload = () => {
+          this.NewProject.image = reader.result; // variable to hold base64 image
           resolve(reader.result);
         };
         reader.onerror = (error) => reject(error);
@@ -640,20 +936,25 @@ export default {
       this.project = item;
     },
     async showModal(item) {
-      await this.assignModal(item)
+      await this.assignModal(item);
       this.$bvModal.show("show-project");
-    
     },
     submitProject() {
       if (
-        this.project.title &&
-        this.project.link &&
-        this.project.status &&
-        this.project.category_id &&
-        this.project.description &&
-        this.project.image
+        this.NewProject.title &&
+        this.NewProject.link &&
+        this.NewProject.status !== null &&
+        this.NewProject.category_id !== null &&
+        this.NewProject.category_id.length > 0 &&
+        this.NewProject.description &&
+        this.NewProject.image &&
+        this.NewProject.details.client &&
+        this.NewProject.details.skills &&
+        this.NewProject.details.createdBy &&
+        this.NewProject.details.finishedAt &&
+        this.NewProject.details.clientBrief
       ) {
-        this.AddProject(this.project)
+        this.AddProject(this.NewProject)
           .then(() => {
             this.$toasted.show(" تمت العملية بنجاح ", {
               theme: "outline",
@@ -679,9 +980,14 @@ export default {
       if (
         this.project.title &&
         this.project.link &&
-        this.project.status &&
+        this.project.status !== null &&
         this.project.category_id &&
-        this.project.description
+        this.project.description &&
+        this.project.details.client &&
+        this.project.details.skills &&
+        this.project.details.createdBy &&
+        this.project.details.finishedAt &&
+        this.project.details.clientBrief
       ) {
         this.UpdateProject(this.project)
           .then(() => {
@@ -691,7 +997,7 @@ export default {
               type: "success",
               duration: 2000,
             });
-            this.$bvModal.hide("bv-modal-example");
+            this.$bvModal.hide("bv-modal-example-edit");
           })
           .catch((err) => {
             console.log(err);
@@ -728,11 +1034,14 @@ export default {
 </script>
 
 <style>
+.form-bookmark button {
+  margin-top: 0px !important;
+}
 .img-fluid {
   max-height: 200px;
 }
 
-.ql-formats button{
-    margin: 0px !important;
+.ql-formats button {
+  margin: 0px !important;
 }
 </style>

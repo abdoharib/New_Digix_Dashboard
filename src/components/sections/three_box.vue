@@ -4,6 +4,7 @@
     <b-button
       class="btn remove-btn btn-pill m-2 p-0 pt-2 px-2"
       style="height: fit-content"
+      @click="Remove(index)"
     >
       <i class="fa fa-trash-o"></i>
     </b-button>
@@ -60,6 +61,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   props: {
@@ -79,10 +81,12 @@ export default {
         var reader = new FileReader();
 
         reader.onload = (e) => {
+       let imgId = uuidv4() 
           let TempProps = JSON.parse(JSON.stringify(this.props));
           TempProps.images[0] = {
             url: e.target.result,
-            data: input.files[0],
+            data: e.target.result,
+            name:`${imgId}.${ input.files[0].name.split('.')[1].toLowerCase()}`
           };
           this.UpdateProps({ props: TempProps, index: this.index });
         };
@@ -96,11 +100,12 @@ export default {
         var reader = new FileReader();
 
         reader.onload = (e) => {
-          console.log(e.target.result);
+       let imgId = uuidv4() 
           let TempProps = JSON.parse(JSON.stringify(this.props));
           TempProps.images[1] = {
             url: e.target.result,
-            data: input.files[0],
+            data: e.target.result,
+            name:`${imgId}.${ input.files[0].name.split('.')[1].toLowerCase()}`
           };
 
           this.UpdateProps({ props: TempProps, index: this.index });
@@ -115,12 +120,12 @@ export default {
         var reader = new FileReader();
 
         reader.onload = (e) => {
-          console.log(e.target.result);
+       let imgId = uuidv4() 
           let TempProps = JSON.parse(JSON.stringify(this.props));
-          console.log(TempProps.images[2]);
           TempProps.images[2] = {
             url: e.target.result,
-            data: input.files[0],
+            data: e.target.result,
+            name:`${imgId}.${ input.files[0].name.split('.')[1].toLowerCase()}`
           };
 
           this.UpdateProps({ props: TempProps, index: this.index });

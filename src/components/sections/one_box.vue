@@ -3,6 +3,7 @@
     <b-button
       class="btn remove btn-pill m-2 p-0 pt-2 px-2"
       style="height: fit-content"
+      @click="Remove(index)"
     >
       <i class="fa fa-trash-o"></i>
     </b-button>
@@ -31,7 +32,7 @@
 
 <script>
 import { mapActions } from "vuex";
-
+import { v4 as uuidv4 } from 'uuid';
 export default {
   props: {
     index: {
@@ -51,10 +52,12 @@ export default {
         var reader = new FileReader();
 
         reader.onload = (e) => {
+          let imgId = uuidv4() 
           let TempProps = JSON.parse(JSON.stringify(this.props));
           TempProps.images[0] = {
             url: e.target.result,
-            data: input.files[0],
+            data: e.target.result,
+            name:`${imgId}.${ input.files[0].name.split('.')[1].toLowerCase()}`
           };
           this.UpdateProps({ props: TempProps, index: this.index });
         };

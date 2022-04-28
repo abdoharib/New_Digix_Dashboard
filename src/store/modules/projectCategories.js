@@ -1,3 +1,4 @@
+import { PageHeader } from "element-ui";
 import axios from "../../axios.js"
 import Sections from "./PageHelpers"
 /* eslint-disable */
@@ -171,6 +172,11 @@ const getters = {
         let Body = state.catagory.catagories[Object.keys(catagories)[0]].Page.children[1];
          let PageSections = Body.children
          return PageSections;
+     },
+     PageHeader(state) {
+        let {catagories} =  state.catagory
+        let Header = state.catagory.catagories[Object.keys(catagories)[0]].Page.children[0];
+        return Header;
      }
 
 };
@@ -206,6 +212,10 @@ const mutations = {
 
     UpdateCatagory(state,payload) {
         state.catagory=payload
+    },
+
+    UpdateStatus(state, payload){
+        state.catagory.catagories[Object.keys( state.catagory.catagories)[0]].isActive = payload
     }
 };
 
@@ -249,7 +259,15 @@ const actions = {
         if (res.data.statusCode !== 200) {
             console.log(res.data.message);
           } else {
-            commit('UpdateCatagory', res.data.body);
+              console.log(res.data.body);
+              let c = res.data.body.catagories
+              let updated_catagory = {
+                project_id: res.data.body.id,
+                catagories: {
+                    [ Object.keys(state.catagory.catagories)[0] ]:res.data.body.catagories[Object.keys(state.catagory.catagories)[0]]
+                }
+              }
+            commit('UpdateCatagory', updated_catagory);
           }
     }
 

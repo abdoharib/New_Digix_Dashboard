@@ -6,8 +6,13 @@
       </div>
       <div class="col-9">
         <b-card cl header-tag="div" body-class="">
-          <h5 class="m-0 p-0" slot="header">التسويق</h5>
-
+          <div slot="header">
+            <h5 class="m-0 p-0 text-center" >التسويق</h5>
+              <div class="sections-header mt-4">
+                <branding-header :header="PageHeader"/>
+              </div>
+          </div>
+        
           <div style="width: fitcontent; max-height:400px; overflow:auto;" class="editor shadow p-2 rounded">
             <draggable v-bind="dragOptions" class="w-100" v-model="List">
               <transition-group
@@ -40,11 +45,13 @@ import DoubleBox from "../components/sections/two_box.vue";
 import TripleBox from "../components/sections/three_box.vue";
 import OneBox from "../components/sections/one_box.vue";
 import TextBox from "../components/sections/text_section.vue";
+import BrandingHeader from './sections/branding_header.vue';
 
 export default {
   components: {
     EditorTools,
     draggable,
+    BrandingHeader,
   },
   data: () => ({
     page: [],
@@ -53,11 +60,13 @@ export default {
   methods: {
         ...mapActions("projectCategories", ["UpdateCatagory"]),
 
-    handleOk(bvModalEvent) {
+    async handleOk(bvModalEvent) {
         // Prevent modal from closing
         bvModalEvent.preventDefault()
         // Trigger submit handler
-        this.UpdateCatagory()
+        await this.UpdateCatagory()
+        this.$bvModal.hide(`project-page-editor`)
+
     },
     AddtoPage(section) {
       this.page.push(section);
@@ -81,7 +90,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("projectCategories", ["PageSections"]),
+    ...mapGetters("projectCategories", ["PageSections","PageHeader"]),
     ...mapMutations({
       ReplaceBody: "projectCategories/ReplaceBody",
     }),
@@ -100,6 +109,10 @@ export default {
         TripleBox: TripleBox,
         OneBox: OneBox,
         TextBox: TextBox,
+        /*
+        MarketingHeader:MarketingHeader,
+        BrandingHeader:BrandingHeader,
+        DevelopmentHeader:DevelopmentHeader*/
       };
     },
     dragOptions() {

@@ -55,6 +55,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   props: {
@@ -75,11 +76,13 @@ export default {
         var reader = new FileReader();
 
         reader.onload = (e) => {
-          let TempProps = JSON.parse(JSON.stringify(this.props))
-          TempProps.images[0]= {
-              url: e.target.result,
-              data: input.files[0],
-            }
+          let imgId = uuidv4() 
+          let TempProps = JSON.parse(JSON.stringify(this.props));
+          TempProps.images[0] = {
+            url: e.target.result,
+            data: e.target.result,
+            name:`${imgId}.${ input.files[0].name.split('.')[1].toLowerCase()}`
+          };
           this.UpdateProps({ props: TempProps, index: this.index });
         };
         reader.readAsDataURL(input.files[0]);
@@ -92,13 +95,13 @@ export default {
         var reader = new FileReader();
 
         reader.onload = (e) => {
-          console.log(e.target.result);
-          let TempProps = JSON.parse(JSON.stringify(this.props))
-          console.log(TempProps.images[1]);
-          TempProps.images[1]= {
-              url: e.target.result,
-              data: input.files[0],
-            }
+          let imgId = uuidv4() 
+          let TempProps = JSON.parse(JSON.stringify(this.props));
+          TempProps.images[1] = {
+            url: e.target.result,
+            data: e.target.result,
+            name:`${imgId}.${ input.files[0].name.split('.')[1].toLowerCase()}`
+          };
 
           this.UpdateProps({ props: TempProps, index: this.index });
         };
