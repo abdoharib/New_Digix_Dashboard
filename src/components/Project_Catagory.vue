@@ -95,20 +95,17 @@ export default {
       this.$bvModal.show(`project-page-editor`)
 
     },
-    SetProjectStatus(e){
-
-      let project =JSON.parse(JSON.stringify(this.project)) 
-      
-      if(e.target.checked){
-        project.category_id = [...project.category_id, ...this.ids]
-      }else{
-        let filtered = project.category_id.filter(id => this.ids.indexOf(id) < 0 )
-        project.category_id = filtered
+    SetProjectStatus(e){ 
+      if(e.target.checked == true){
+        this.project.category_id.push(...this.ids)
+      }else if(e.target.checked == false){
+        let filtered = this.project.category_id.filter(id => this.ids.indexOf(id) < 0 )
+        this.project.category_id = filtered
       }
 
      // project.catagories[this.type].isActive = e.target.checked
 
-      this.UpdateProject(project)
+      //this.UpdateProject(project)
     }
   },
   mounted(){
